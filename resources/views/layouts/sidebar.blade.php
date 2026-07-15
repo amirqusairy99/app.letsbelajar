@@ -12,9 +12,8 @@
         <p class="text-uppercase small fw-semibold mb-2 px-3" style="color: #475569; font-size: 0.65rem; letter-spacing: 1.5px;">Main Menu</p>
 
         @php
-            $kanbanTarget = request()->route('assignment')
-                ?? auth()->user()->assignmentMembers()->first()?->assignment_id
-                ?? optional(\App\Models\Assignment::first())?->id;
+            $currentRouteAssignment = request()->route('assignment');
+            $kanbanTarget = is_object($currentRouteAssignment) ? $currentRouteAssignment->id : $currentRouteAssignment;
         @endphp
 
         <nav class="nav flex-column gap-1">
@@ -26,7 +25,7 @@
                 <i data-lucide="book-open" class="w-4 h-4"></i>
                 Assignments
             </a>
-            <a href="{{ $kanbanTarget ? route('kanban.index', $kanbanTarget) : route('assignments.index') }}" class="sidebar-link {{ request()->routeIs('kanban.*') ? 'active' : '' }}">
+            <a href="{{ $kanbanTarget ? route('kanban.index', $kanbanTarget) : route('kanban.board') }}" class="sidebar-link {{ request()->routeIs('kanban.*') ? 'active' : '' }}">
                 <i data-lucide="kanban" class="w-4 h-4"></i>
                 Kanban Board
             </a>

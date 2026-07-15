@@ -34,6 +34,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/assignments/{assignment}/tasks/{task}', [TaskController::class, 'update'])->name('tasks.update');
     Route::delete('/assignments/{assignment}/tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
     
+    Route::get('/kanban', [KanbanController::class, 'board'])->name('kanban.board');
     Route::post('/tasks/{task}/move', [KanbanController::class, 'move'])->name('tasks.move');
     Route::get('/assignments/{assignment}/kanban', [KanbanController::class, 'index'])->name('kanban.index');
     

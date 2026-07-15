@@ -11,6 +11,18 @@ use Illuminate\Support\Facades\Auth;
 
 class KanbanController extends Controller
 {
+    public function board(Request $request)
+    {
+        $user = $request->user();
+        $firstMember = $user->assignmentMembers()->first();
+
+        if (!$firstMember) {
+            return view('kanban.empty');
+        }
+
+        return redirect()->route('kanban.index', $firstMember->assignment_id);
+    }
+
     public function index(Assignment $assignment)
     {
         $this->authorize('view', $assignment);
