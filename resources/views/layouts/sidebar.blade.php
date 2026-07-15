@@ -12,7 +12,9 @@
         <p class="text-uppercase small fw-semibold mb-2 px-3" style="color: #475569; font-size: 0.65rem; letter-spacing: 1.5px;">Main Menu</p>
 
         @php
-            $kanbanTarget = request()->route('assignment') ?? optional(\App\Models\Assignment::first())?->id;
+            $kanbanTarget = request()->route('assignment')
+                ?? auth()->user()->assignmentMembers()->first()?->assignment_id
+                ?? optional(\App\Models\Assignment::first())?->id;
         @endphp
 
         <nav class="nav flex-column gap-1">
