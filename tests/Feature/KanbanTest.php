@@ -51,4 +51,32 @@ class KanbanTest extends TestCase
 
         $response->assertRedirect(route('kanban.index', $assignment->id));
     }
+
+    public function test_user_with_deleted_assignment_sees_empty_kanban_view(): void
+    {
+        $user = User::factory()->create();
+        
+        $assignment = Assignment::create([
+            'subject' => 'Software Engineering',
+            'name' => 'Final Year Project',
+            'status' => 'active',
+            'created_by' => $user->id,
+        ]);
+
+        AssignmentMember::create([
+            'assignment_id' => $assignment->id,
+            'user_id' => $user->id,
+            'role' => 'owner',
+            'joined_at' => now(),
+        ]);
+
+        // Soft delete the assignment
+        $assignment->delete();
+
+        $response = $this->actingAs($user)->get('/kanban');
+
+        $response->assertStatus(200);
+        $response->assertViewIs('kanban.empty');
+        $response->assertSee('Create Your First Assignment');
+    }
 }
