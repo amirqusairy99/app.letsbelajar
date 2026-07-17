@@ -15,6 +15,13 @@ class AssignmentPolicy
             : Response::deny('You do not have access to this assignment.');
     }
 
+    public function upload(User $user, Assignment $assignment)
+    {
+        return $assignment->members()->where('user_id', $user->id)->exists()
+            ? Response::allow()
+            : Response::deny('You do not have access to this assignment.');
+    }
+
     public function update(User $user, Assignment $assignment)
     {
         $member = $assignment->members()->where('user_id', $user->id)->first();
