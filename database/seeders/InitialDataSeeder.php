@@ -15,7 +15,7 @@ class InitialDataSeeder extends Seeder
     {
         $user = User::create([
             'name' => 'Test User',
-            'email' => 'test@jomstudy.app',
+            'email' => 'test@ayuhstudy.app',
             'password' => Hash::make('password123'),
             'email_verified_at' => now(),
         ]);

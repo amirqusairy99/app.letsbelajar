@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="JomStudy — Sign in to manage your university assignments">
+    <meta name="description" content="AyuhStudy — Sign in to manage your university assignments">
 
-    <title>@yield('title', 'JomStudy')</title>
+    <title>@yield('title', 'AyuhStudy')</title>
 
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -25,7 +25,7 @@
                         </svg>
                     </div>
                 </a>
-                <h1 class="h3 mt-3 fw-bold" style="color: #F1F5F9; letter-spacing: -0.5px;">JomStudy</h1>
+                <h1 class="h3 mt-3 fw-bold" style="color: #F1F5F9; letter-spacing: -0.5px;">AyuhStudy</h1>
                 <p class="text-secondary mb-0" style="font-size: 0.875rem;">Collaborative study management</p>
             </div>
             {{ $slot }}

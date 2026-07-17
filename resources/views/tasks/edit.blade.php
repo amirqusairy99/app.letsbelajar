@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Task — JomStudy')
+@section('title', 'Edit Task — AyuhStudy')
 @section('page-title', 'Edit Task')
 
 @section('content')
