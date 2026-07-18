@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $assignment->name . ' — AyuhStudy')
+@section('title', $assignment->name . ' — LetsBelajar')
 @section('page-title', $assignment->name)
 
 @section('content')

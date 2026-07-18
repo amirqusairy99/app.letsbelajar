@@ -6,7 +6,7 @@
                     <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"/>
                 </svg>
             </div>
-            <span class="fw-bold fs-5" style="color: #F1F5F9; letter-spacing: -0.3px;">AyuhStudy</span>
+            <span class="fw-bold fs-5" style="color: #F1F5F9; letter-spacing: -0.3px;">LetsBelajar</span>
         </a>
 
         <p class="text-uppercase small fw-semibold mb-2 px-3" style="color: #475569; font-size: 0.65rem; letter-spacing: 1.5px;">Main Menu</p>

@@ -2,7 +2,7 @@
     <div class="card shadow-sm border-0 rounded-3" style="border-color: var(--js-border-strong) !important; background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(12px);">
         <div class="card-body p-4">
             <h2 class="h4 mb-1 fw-bold" style="color: var(--js-text-primary);">Welcome back</h2>
-            <p class="mb-4" style="color: var(--js-text-muted); font-size: 0.875rem;">Sign in to your AyuhStudy account</p>
+            <p class="mb-4" style="color: var(--js-text-muted); font-size: 0.875rem;">Sign in to your LetsBelajar account</p>
 
             <form method="POST" action="{{ route('login') }}">
                 @csrf

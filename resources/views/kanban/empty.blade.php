@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Kanban Board — AyuhStudy')
+@section('title', 'Kanban Board — LetsBelajar')
 @section('page-title', 'Kanban Board')
 
 @section('content')
