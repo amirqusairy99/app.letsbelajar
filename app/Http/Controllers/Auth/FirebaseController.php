@@ -26,6 +26,10 @@ class FirebaseController extends Controller
         try {
             $verified = app(FirebaseAuth::class)->verifyIdToken($request->input('id_token'));
         } catch (Throwable $e) {
+            \Log::error('Firebase token verification failed', [
+                'exception' => get_class($e),
+                'message' => $e->getMessage(),
+            ]);
             abort(401, 'Invalid Firebase token.');
         }
 
