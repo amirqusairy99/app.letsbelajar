@@ -17,7 +17,7 @@ class UploadFileRequest extends FormRequest
             'file' => [
                 'required',
                 'file',
-                'max:5120',
+                'max:15360',
                 'mimes:' . implode(',', self::ALLOWED_EXTENSIONS),
             ],
             'folder_id' => ['nullable', 'exists:folders,id'],
@@ -28,7 +28,7 @@ class UploadFileRequest extends FormRequest
     {
         return [
             'file.required' => 'Please select a file to upload.',
-            'file.max' => 'File size must not exceed 5MB.',
+                'file.max' => 'File size must not exceed 15MB.',
             'file.mimes' => 'This file type is not allowed. Allowed: ' . implode(', ', self::ALLOWED_EXTENSIONS) . '.',
         ];
     }
