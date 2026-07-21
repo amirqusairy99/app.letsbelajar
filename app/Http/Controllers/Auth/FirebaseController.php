@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -17,7 +17,7 @@ class FirebaseController extends Controller
     /**
      * Handle an incoming Firebase (e.g. Google) sign-in.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request): Response
     {
         $request->validate([
             'id_token' => ['required', 'string'],
@@ -72,6 +72,14 @@ class FirebaseController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        if ($user->isDisabled()) {
+            return response()->json(['redirect' => route('account.suspended')]);
+        }
+
+        $target = $user->isAdmin()
+            ? route('admin.dashboard')
+            : route('dashboard');
+
+        return response()->json(['redirect' => $target]);
     }
 }

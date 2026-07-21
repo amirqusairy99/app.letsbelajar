@@ -22,7 +22,26 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'firebase_uid',
+        'is_admin',
+        'is_disabled',
+        'disabled_at',
     ];
+
+    protected $casts = [
+        'is_admin' => 'boolean',
+        'is_disabled' => 'boolean',
+        'disabled_at' => 'datetime',
+    ];
+
+    public function isAdmin(): bool
+    {
+        return (bool) $this->is_admin;
+    }
+
+    public function isDisabled(): bool
+    {
+        return (bool) $this->is_disabled;
+    }
 
     public function createdAssignments()
     {

@@ -35,7 +35,11 @@ window.signInWithGoogle = async function signInWithGoogle() {
     const result = await signInWithPopup(firebaseAuth, provider);
     const idToken = await getIdToken(result.user);
 
-    await axios.post('/auth/firebase', { id_token: idToken });
+    const response = await axios.post('/auth/firebase', { id_token: idToken });
 
-    window.location.href = '/dashboard';
+    if (response.data && response.data.redirect) {
+        window.location.href = response.data.redirect;
+    } else {
+        window.location.href = '/dashboard';
+    }
 };

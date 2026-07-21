@@ -11,6 +11,10 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
+        if ($request->user()->isAdmin()) {
+            return redirect()->route('admin.dashboard');
+        }
+
         $user = $request->user();
         
         $myAssignments = Assignment::whereHas('members', function ($query) use ($user) {

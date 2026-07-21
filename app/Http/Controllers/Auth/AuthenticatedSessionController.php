@@ -28,6 +28,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        if ($request->wasDisabled()) {
+            return redirect()->route('account.suspended');
+        }
+
         return redirect()->intended(route('dashboard', absolute: false));
     }
 

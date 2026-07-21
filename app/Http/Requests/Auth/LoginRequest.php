@@ -50,7 +50,19 @@ class LoginRequest extends FormRequest
             ]);
         }
 
+        if (Auth::user()->isDisabled()) {
+            return;
+        }
+
         RateLimiter::clear($this->throttleKey());
+    }
+
+    /**
+     * Determine whether the authenticated user is disabled (trial expired).
+     */
+    public function wasDisabled(): bool
+    {
+        return Auth::user() && Auth::user()->isDisabled();
     }
 
     /**
