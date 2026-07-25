@@ -47,6 +47,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/assignments/{assignment}/files', [FileController::class, 'index'])->name('files.index');
     Route::post('/assignments/{assignment}/files/upload', [FileController::class, 'upload'])->name('files.upload');
     Route::get('/assignments/{assignment}/files/{file}/download', [FileController::class, 'download'])->name('files.download');
+    Route::get('/assignments/{assignment}/files/{file}/preview', [FileController::class, 'preview'])->name('files.preview');
+    Route::get('/assignments/{assignment}/files/{file}/content', [FileController::class, 'content'])->name('files.content');
     Route::patch('/assignments/{assignment}/files/{file}', [FileController::class, 'update'])->name('files.update');
     Route::delete('/assignments/{assignment}/files/{file}', [FileController::class, 'destroy'])->name('files.destroy');
     

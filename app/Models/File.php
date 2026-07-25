@@ -38,4 +38,11 @@ class File extends Model
     {
         return $this->belongsTo(User::class, 'uploaded_by');
     }
+
+    public function isPdf(): bool
+    {
+        return strtolower((string) $this->mime_type) === 'application/pdf'
+            || \Illuminate\Support\Str::endsWith(strtolower((string) $this->name), '.pdf')
+            || \Illuminate\Support\Str::endsWith(strtolower((string) $this->path), '.pdf');
+    }
 }

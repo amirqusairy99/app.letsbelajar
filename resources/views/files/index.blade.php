@@ -56,6 +56,9 @@
                         <td>{{ $file->size ? round($file->size / 1024, 1) . ' KB' : '-' }}</td>
                         <td>{{ $file->created_at->format('M j, Y') }}</td>
                         <td class="text-end pe-4">
+                            @if($file->isPdf())
+                                <a href="{{ route('files.preview', [$assignment, $file]) }}" class="btn btn-sm btn-outline-primary rounded-2">Preview</a>
+                            @endif
                             <a href="{{ route('files.download', [$assignment, $file]) }}" class="btn btn-sm btn-outline-primary rounded-2">Download</a>
                             <button class="btn btn-sm btn-outline-secondary rounded-2" onclick="renameFile({{ $file->id }}, '{{ $file->name }}')">Rename</button>
                             <form action="{{ route('files.destroy', [$assignment, $file]) }}" method="POST" class="d-inline">
