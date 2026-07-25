@@ -102,9 +102,15 @@
                 @csrf
                 @method('delete')
                 <div class="modal-body">
-                    <p class="small" style="color: var(--js-text-secondary);">This action cannot be undone. Enter your password to confirm.</p>
-                    <input type="password" name="password" class="form-control" placeholder="Password" required>
-                    @error('password', 'userDeletion')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
+                    @if ($user->firebase_uid)
+                        <p class="small" style="color: var(--js-text-secondary);">This action cannot be undone. Enter your account email address (<strong>{{ $user->email }}</strong>) to confirm deletion.</p>
+                        <input type="email" name="email" class="form-control @error('email', 'userDeletion') is-invalid @enderror" placeholder="{{ $user->email }}" required>
+                        @error('email', 'userDeletion')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
+                    @else
+                        <p class="small" style="color: var(--js-text-secondary);">This action cannot be undone. Enter your password to confirm.</p>
+                        <input type="password" name="password" class="form-control @error('password', 'userDeletion') is-invalid @enderror" placeholder="Password" required>
+                        @error('password', 'userDeletion')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
+                    @endif
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -114,4 +120,13 @@
         </div>
     </div>
 </div>
+
+@if ($errors->userDeletion->isNotEmpty())
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var deleteModal = new bootstrap.Modal(document.getElementById('deleteAccountModal'));
+        deleteModal.show();
+    });
+</script>
+@endif
 @endsection

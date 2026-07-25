@@ -42,11 +42,19 @@ class ProfileController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
-
         $user = $request->user();
+
+        if ($user->firebase_uid) {
+            $request->validateWithBag('userDeletion', [
+                'email' => ['required', 'string', 'email', 'in:'.$user->email],
+            ], [
+                'email.in' => 'The entered email does not match your account email address.',
+            ]);
+        } else {
+            $request->validateWithBag('userDeletion', [
+                'password' => ['required', 'current_password'],
+            ]);
+        }
 
         Auth::logout();
 
