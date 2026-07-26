@@ -148,4 +148,79 @@ class AssignmentController extends Controller
 
         return back()->with('success', 'Assignment unarchived successfully.');
     }
+
+    public function analytics(Assignment $assignment)
+    {
+        $this->authorize('view', $assignment);
+
+        $assignment->load('members.user');
+
+        // Pre-fetch counts for all users in this assignment to eliminate N+1 queries
+        $filesUploadedCounts = \App\Models\File::where('assignment_id', $assignment->id)
+            ->select('uploaded_by', \DB::raw('count(*) as total'))
+            ->groupBy('uploaded_by')
+            ->pluck('total', 'uploaded_by');
+
+        $tasksAssignedCounts = \App\Models\Task::where('assignment_id', $assignment->id)
+            ->select('assigned_to', \DB::raw('count(*) as total'))
+            ->groupBy('assigned_to')
+            ->pluck('total', 'assigned_to');
+
+        $tasksCompletedCounts = \App\Models\Task::where('assignment_id', $assignment->id)
+            ->where('status', 'completed')
+            ->select('assigned_to', \DB::raw('count(*) as total'))
+            ->groupBy('assigned_to')
+            ->pluck('total', 'assigned_to');
+
+        $tasksCreatedCounts = \App\Models\Task::where('assignment_id', $assignment->id)
+            ->select('created_by', \DB::raw('count(*) as total'))
+            ->groupBy('created_by')
+            ->pluck('total', 'created_by');
+
+        $activitiesCounts = Activity::where('assignment_id', $assignment->id)
+            ->select('user_id', \DB::raw('count(*) as total'))
+            ->groupBy('user_id')
+            ->pluck('total', 'user_id');
+
+        $recentActivitiesGrouped = Activity::where('assignment_id', $assignment->id)
+            ->latest()
+            ->get()
+            ->groupBy('user_id');
+
+        $memberStats = [];
+
+        foreach ($assignment->members as $member) {
+            $user = $member->user;
+
+            $filesUploadedCount = $filesUploadedCounts->get($user->id, 0);
+            $tasksAssignedCount = $tasksAssignedCounts->get($user->id, 0);
+            $tasksCompletedCount = $tasksCompletedCounts->get($user->id, 0);
+            $tasksCreatedCount = $tasksCreatedCounts->get($user->id, 0);
+            $activitiesCount = $activitiesCounts->get($user->id, 0);
+            $recentActivities = $recentActivitiesGrouped->get($user->id, collect())->take(5);
+
+            $memberStats[] = [
+                'user' => $user,
+                'role' => $member->role,
+                'files_uploaded' => $filesUploadedCount,
+                'tasks_assigned' => $tasksAssignedCount,
+                'tasks_completed' => $tasksCompletedCount,
+                'tasks_created' => $tasksCreatedCount,
+                'activities_count' => $activitiesCount,
+                'recent_activities' => $recentActivities,
+            ];
+        }
+
+        // Sort by activities count descending
+        usort($memberStats, function ($a, $b) {
+            return $b['activities_count'] <=> $a['activities_count'];
+        });
+
+        $totalTasks = \App\Models\Task::where('assignment_id', $assignment->id)->count();
+        $completedTasks = \App\Models\Task::where('assignment_id', $assignment->id)->where('status', 'completed')->count();
+        $totalFiles = \App\Models\File::where('assignment_id', $assignment->id)->count();
+        $totalActivities = $totalActivities = $activitiesCounts->sum();
+
+        return view('assignments.analytics', compact('assignment', 'memberStats', 'totalTasks', 'completedTasks', 'totalFiles', 'totalActivities'));
+    }
 }

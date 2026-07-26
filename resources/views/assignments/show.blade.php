@@ -26,6 +26,7 @@
                 <button type="submit" class="btn btn-outline-danger rounded-2">Delete</button>
             </form>
         @endcan
+        <a href="{{ route('assignments.analytics', $assignment) }}" class="btn btn-outline-info rounded-2">Contributions</a>
         <a href="{{ route('tasks.index', $assignment) }}" class="btn btn-primary rounded-2">Tasks</a>
     </div>
 </div>
@@ -101,6 +102,9 @@
                     </a>
                     <a href="{{ route('kanban.index', $assignment) }}" class="btn btn-outline-secondary rounded-2 text-start">
                         <i data-lucide="kanban" class="w-4 h-4 me-2"></i> Kanban Board
+                    </a>
+                    <a href="{{ route('assignments.analytics', $assignment) }}" class="btn btn-outline-secondary rounded-2 text-start">
+                        <i data-lucide="bar-chart-2" class="w-4 h-4 me-2"></i> Member Contributions
                     </a>
                 </div>
             </div>

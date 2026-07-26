@@ -29,6 +29,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('assignments', AssignmentController::class);
     Route::post('/assignments/{assignment}/archive', [AssignmentController::class, 'archive'])->name('assignments.archive');
     Route::post('/assignments/{assignment}/unarchive', [AssignmentController::class, 'unarchive'])->name('assignments.unarchive');
+    Route::get('/assignments/{assignment}/analytics', [AssignmentController::class, 'analytics'])->name('assignments.analytics');
     
     Route::post('/assignments/{assignment}/members', [MemberController::class, 'store'])->name('members.store');
     Route::delete('/assignments/{assignment}/members/{member}', [MemberController::class, 'destroy'])->name('members.destroy');
