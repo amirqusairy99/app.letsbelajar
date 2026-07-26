@@ -44,6 +44,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/tasks/{task}/move', [KanbanController::class, 'move'])->name('tasks.move');
     Route::get('/assignments/{assignment}/kanban', [KanbanController::class, 'index'])->name('kanban.index');
     
+    Route::get('/calendar', [\App\Http\Controllers\CalendarController::class, 'index'])->name('calendar.index');
+    Route::get('/calendar/events', [\App\Http\Controllers\CalendarController::class, 'events'])->name('calendar.events');
+    
     Route::get('/assignments/{assignment}/files', [FileController::class, 'index'])->name('files.index');
     Route::post('/assignments/{assignment}/files/upload', [FileController::class, 'upload'])->name('files.upload');
     Route::get('/assignments/{assignment}/files/{file}/download', [FileController::class, 'download'])->name('files.download');

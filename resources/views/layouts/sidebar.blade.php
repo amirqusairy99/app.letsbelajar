@@ -39,6 +39,10 @@
                 <i data-lucide="kanban" class="w-4 h-4"></i>
                 Kanban
             </a>
+            <a href="{{ route('calendar.index') }}" class="sidebar-link {{ request()->routeIs('calendar.*') ? 'active' : '' }}">
+                <i data-lucide="calendar" class="w-4 h-4"></i>
+                Calendar
+            </a>
             <a href="{{ route('notifications.index') }}" class="sidebar-link {{ request()->routeIs('notifications.*') ? 'active' : '' }}">
                 <i data-lucide="bell" class="w-4 h-4"></i>
                 Notifications

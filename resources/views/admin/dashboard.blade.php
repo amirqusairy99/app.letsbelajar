@@ -106,27 +106,29 @@
                     <i data-lucide="activity" class="w-4 h-4 me-2" style="color: var(--js-success); vertical-align: -2px;"></i>
                     Recent Activity
                 </h5>
-                @forelse($recentActivity as $activity)
-                    <div class="d-flex gap-3 py-2 {{ !$loop->last ? 'border-bottom' : '' }}" style="border-color: var(--js-border) !important;">
-                        <div class="flex-shrink-0 mt-1">
-                            <div style="width: 6px; height: 6px; border-radius: 50%; background: var(--js-accent); margin-top: 4px;"></div>
+                <div class="overflow-y-auto pe-1" style="max-height: 350px;">
+                    @forelse($recentActivity as $activity)
+                        <div class="d-flex gap-3 py-2 {{ !$loop->last ? 'border-bottom' : '' }}" style="border-color: var(--js-border) !important;">
+                            <div class="flex-shrink-0 mt-1">
+                                <div style="width: 6px; height: 6px; border-radius: 50%; background: var(--js-accent); margin-top: 4px;"></div>
+                            </div>
+                            <div>
+                                <p class="mb-0 small" style="color: var(--js-text-primary);">
+                                    @if($activity->user)
+                                        <span class="fw-semibold">{{ $activity->user->name }}</span>
+                                    @endif
+                                    {{ $activity->description }}
+                                </p>
+                                <small style="color: var(--js-text-muted);">{{ $activity->created_at->diffForHumans() }}</small>
+                            </div>
                         </div>
-                        <div>
-                            <p class="mb-0 small" style="color: var(--js-text-primary);">
-                                @if($activity->user)
-                                    <span class="fw-semibold">{{ $activity->user->name }}</span>
-                                @endif
-                                {{ $activity->description }}
-                            </p>
-                            <small style="color: var(--js-text-muted);">{{ $activity->created_at->diffForHumans() }}</small>
+                    @empty
+                        <div class="text-center py-3">
+                            <i data-lucide="activity" class="w-5 h-5 mb-2" style="color: var(--js-text-muted);"></i>
+                            <p class="mb-0 small" style="color: var(--js-text-muted);">No activity recorded yet.</p>
                         </div>
-                    </div>
-                @empty
-                    <div class="text-center py-3">
-                        <i data-lucide="activity" class="w-5 h-5 mb-2" style="color: var(--js-text-muted);"></i>
-                        <p class="mb-0 small" style="color: var(--js-text-muted);">No activity recorded yet.</p>
-                    </div>
-                @endforelse
+                    @endforelse
+                </div>
             </div>
         </div>
     </div>
