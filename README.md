@@ -1,6 +1,6 @@
-# JomStudy
+# LetsBelajar
 
-JomStudy (also known as LetsBelajar) is a collaborative study and assignment management platform built with Laravel. It enables students, teachers, and project members to organize assignments, coordinate tasks via Kanban boards, share files and folders, track deadlines using an interactive calendar, and receive real-time notifications. It also features an administrative panel to monitor user activity and manage accounts.
+LetsBelajar is a collaborative study and assignment management platform built with Laravel. It enables students, teachers, and project members to organize assignments, coordinate tasks via Kanban boards, share files and folders, track deadlines using an interactive calendar, and receive real-time notifications. It also features an administrative panel to monitor user activity and manage accounts.
 
 ## Features
 
@@ -37,7 +37,7 @@ Follow these steps to set up the project on your local machine:
 Clone the project to your local machine and navigate into the project directory:
 ```bash
 git clone <repository-url>
-cd jomstudy
+cd letsbelajar
 ```
 
 #### 2. Install Dependencies
