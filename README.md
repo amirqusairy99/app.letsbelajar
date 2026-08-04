@@ -2,6 +2,25 @@
 
 LetsBelajar is a collaborative study and assignment management platform built with Laravel. It enables students, teachers, and project members to organize assignments, coordinate tasks via Kanban boards, share files and folders, track deadlines using an interactive calendar, and receive real-time notifications. It also features an administrative panel to monitor user activity and manage accounts.
 
+## Application Interface Screenshots
+
+Here are screenshots showing the application's interface and features when logged in:
+
+### Dashboard
+![Dashboard](docs/images/dashboard.png)
+
+### Kanban Board
+![Kanban Board](docs/images/kanban.png)
+
+### Interactive Calendar
+![Calendar](docs/images/calendar.png)
+
+### Assignment Details & File Sharing
+![Assignment Details](docs/images/assignment_detail.png)
+
+### Login Page
+![Login Page](docs/images/login.png)
+
 ## Features
 
 - Assignment Management: Create, edit, and archive assignments. Track member contributions and view analytic reports for assignment progress.
@@ -87,21 +106,4 @@ composer run dev
 
 You can log in using the administrator account seeded during database setup, or register a new user account.
 
-## Application Interface Screenshots
 
-Here are screenshots showing the application's interface and features when logged in:
-
-### 1. Login Page
-![Login Page](docs/images/login.png)
-
-### 2. Dashboard
-![Dashboard](docs/images/dashboard.png)
-
-### 3. Assignment Details & File Sharing
-![Assignment Details](docs/images/assignment_detail.png)
-
-### 4. Kanban Board
-![Kanban Board](docs/images/kanban.png)
-
-### 5. Interactive Calendar
-![Calendar](docs/images/calendar.png)
