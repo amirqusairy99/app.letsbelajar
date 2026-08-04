@@ -86,3 +86,22 @@ composer run dev
 - Vite Server: http://localhost:5173
 
 You can log in using the administrator account seeded during database setup, or register a new user account.
+
+## Application Interface Screenshots
+
+Here are screenshots showing the application's interface and features when logged in:
+
+### 1. Login Page
+![Login Page](docs/images/login.png)
+
+### 2. Dashboard
+![Dashboard](docs/images/dashboard.png)
+
+### 3. Assignment Details & File Sharing
+![Assignment Details](docs/images/assignment_detail.png)
+
+### 4. Kanban Board
+![Kanban Board](docs/images/kanban.png)
+
+### 5. Interactive Calendar
+![Calendar](docs/images/calendar.png)
