@@ -10,64 +10,14 @@
 
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     
-    <!-- Restored Bootstrap for backward compatibility with un-migrated pages -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    
     <!-- Alpine JS for Navbar Dropdowns -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
-
-    <!-- Tailwind Configuration MUST come before the CDN script -->
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            corePlugins: {
-                preflight: false,
-            },
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            DEFAULT: '#16a34a',
-                            dark: '#22c55e',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Tailwind CSS (via CDN) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Essential Tailwind Preflight rules */
-        *, ::before, ::after {
-            box-sizing: border-box;
-            border-width: 0;
-            border-style: solid;
-            border-color: #e5e7eb;
-        }
-        svg {
-            display: block;
-            vertical-align: middle;
-        }
-        button {
-            background-color: transparent;
-            background-image: none;
-            padding: 0;
-            line-height: inherit;
-            color: inherit;
-            cursor: pointer;
-        }
-        a {
-            color: inherit;
-            text-decoration: inherit;
-        }
-    </style>
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800&display=swap" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-[#ffffff] text-[#09090b] dark:bg-[#0c0a09] dark:text-[#f2f2f2] font-sans antialiased">
+<body class="font-sans antialiased min-h-screen bg-background text-foreground">
     <div class="flex min-h-screen">
         <!-- Sidebar overlay for mobile -->
         <div class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden" id="sidebarOverlay"></div>
@@ -79,7 +29,7 @@
 
             <main class="flex-1 p-4 lg:p-8">
                 @if(session('success'))
-                    <div class="mb-6 flex items-center justify-between rounded-lg border border-green-200 bg-green-50 p-4 text-green-800 dark:border-green-900/50 dark:bg-green-900/20 dark:text-green-400" id="flash-success">
+                    <div class="mb-6 flex items-center justify-between rounded-lg border border-green-500/50 bg-green-500/10 p-4 text-green-700 dark:text-green-400" id="flash-success">
                         <div class="flex items-center gap-2">
                             <i data-lucide="check-circle" class="w-4 h-4"></i>
                             <span class="text-sm font-medium">{{ session('success') }}</span>
@@ -90,7 +40,7 @@
                     </div>
                 @endif
                 @if(session('error'))
-                    <div class="mb-6 flex items-center justify-between rounded-lg border border-red-200 bg-red-50 p-4 text-red-800 dark:border-red-900/50 dark:bg-red-900/20 dark:text-red-400" id="flash-error">
+                    <div class="mb-6 flex items-center justify-between rounded-lg border border-red-500/50 bg-red-500/10 p-4 text-red-700 dark:text-red-400" id="flash-error">
                         <div class="flex items-center gap-2">
                             <i data-lucide="alert-circle" class="w-4 h-4"></i>
                             <span class="text-sm font-medium">{{ session('error') }}</span>
