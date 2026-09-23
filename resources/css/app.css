@@ -37,36 +37,66 @@
   }
 
   .dark, [data-bs-theme="dark"] {
-    /* Dark Greenish Vibe */
-    --background: 20 14.3% 4.1%; /* #0c0a09 */
-    --foreground: 0 0% 95%;
+    /* Soft Dark Greenish Slate Vibe */
+    --background: 140 10% 8%; /* Darker background to let boxes pop */
+    --foreground: 0 0% 98%;
     
-    --card: 24 9.8% 10%;
-    --card-foreground: 0 0% 95%;
+    --card: 140 10% 12%; /* Slightly lighter than background */
+    --card-foreground: 0 0% 98%;
     
-    --popover: 0 0% 9%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 140 10% 12%;
+    --popover-foreground: 0 0% 98%;
     
     /* Greenish Vibe - Primary */
-    --primary: 142.1 70.6% 45.3%; /* #22c55e */
+    --primary: 142.1 70.6% 45.3%;
     --primary-foreground: 144.9 80.4% 10%;
     
-    --secondary: 240 3.7% 15.9%;
+    --secondary: 140 10% 16%;
     --secondary-foreground: 0 0% 98%;
     
-    --muted: 0 0% 15%;
-    --muted-foreground: 240 5% 64.9%;
+    --muted: 140 10% 16%;
+    --muted-foreground: 0 0% 75%;
     
-    --accent: 12 6.5% 15.1%;
+    --accent: 140 10% 16%;
     --accent-foreground: 0 0% 98%;
     
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 85.5% 86.1%;
+    --destructive: 0 62.8% 40.6%;
+    --destructive-foreground: 0 0% 98%;
     
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
+    --border: 140 10% 18%;
+    --input: 140 10% 18%;
     --ring: 142.1 70.6% 45.3%;
   }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground bg-fixed min-h-screen;
+  }
+  
+  .dark body {
+    background-image: 
+      radial-gradient(circle at 15% 50%, rgba(22, 163, 74, 0.12) 0%, transparent 40%),
+      radial-gradient(circle at 85% 10%, rgba(34, 197, 94, 0.12) 0%, transparent 40%);
+  }
+}
+
+@layer components {
+  /* Elevated solid boxes instead of flat */
+  .bg-card {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+  }
+  
+  .dark .bg-card, .dark #appSidebar, .dark nav.sticky {
+    background: linear-gradient(145deg, hsl(140 10% 14%), hsl(140 10% 11%)) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
+
 }
 
 @layer base {

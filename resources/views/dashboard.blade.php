@@ -5,171 +5,171 @@
 
 @section('content')
 {{-- Greeting --}}
-<div class="mb-8">
-    <h1 class="text-2xl font-bold tracking-tight text-[#09090b] dark:text-[#f2f2f2] mb-1">
-        Good {{ now()->hour < 12 ? 'morning' : (now()->hour < 17 ? 'afternoon' : 'evening') }}, {{ explode(' ', auth()->user()->name)[0] }}
-    </h1>
-    <p class="text-sm text-gray-500 dark:text-gray-400">Here's what's happening with your assignments today.</p>
+<div class="mb-8 flex flex-col md:flex-row justify-between md:items-end gap-4">
+    <div>
+        <h1 class="text-3xl font-extrabold tracking-tight text-foreground mb-2">
+            Good {{ now()->hour < 12 ? 'morning' : (now()->hour < 17 ? 'afternoon' : 'evening') }}, {{ explode(' ', auth()->user()->name)[0] }}
+        </h1>
+        <p class="text-base text-muted-foreground">Here's what's happening with your assignments today.</p>
+    </div>
+    <div class="flex items-center gap-2">
+        <a href="{{ route('assignments.create') }}" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-all hover:bg-primary/90 hover:shadow-lg hover:-translate-y-0.5 h-10">
+            <i data-lucide="plus" class="w-4 h-4 mr-2"></i> New Assignment
+        </a>
+    </div>
 </div>
 
 {{-- Stat cards --}}
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-    <div class="rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-[#0c0a09] p-6 shadow-sm flex items-center gap-4">
-        <div class="flex h-12 w-12 items-center justify-center rounded-full bg-amber-100 text-amber-600 dark:bg-amber-900/20 dark:text-amber-500">
-            <i data-lucide="clock" class="h-6 w-6"></i>
-        </div>
-        <div>
-            <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Pending</p>
-            <p class="text-2xl font-bold text-[#09090b] dark:text-[#f2f2f2]">{{ $pendingTasks }}</p>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    
+    <!-- Pending Card -->
+    <div class="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:border-amber-500/30 hover:-translate-y-1">
+        <div class="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-amber-500/10 blur-2xl group-hover:bg-amber-500/20 transition-all duration-500"></div>
+        <div class="relative flex items-center gap-4">
+            <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-500 shadow-inner">
+                <i data-lucide="clock" class="h-7 w-7"></i>
+            </div>
+            <div>
+                <p class="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Pending</p>
+                <p class="text-3xl font-black text-foreground mt-1">{{ $pendingTasks }}</p>
+            </div>
         </div>
     </div>
     
-    <div class="rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-[#0c0a09] p-6 shadow-sm flex items-center gap-4">
-        <div class="flex h-12 w-12 items-center justify-center rounded-full bg-green-100 text-green-600 dark:bg-green-900/20 dark:text-green-500">
-            <i data-lucide="check-circle" class="h-6 w-6"></i>
-        </div>
-        <div>
-            <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Completed</p>
-            <p class="text-2xl font-bold text-[#09090b] dark:text-[#f2f2f2]">{{ $completedTasks }}</p>
-        </div>
-    </div>
-    
-    <div class="rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-[#0c0a09] p-6 shadow-sm flex items-center gap-4">
-        <div class="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary dark:bg-primary/20">
-            <i data-lucide="book-open" class="h-6 w-6"></i>
-        </div>
-        <div>
-            <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Assignments</p>
-            <p class="text-2xl font-bold text-[#09090b] dark:text-[#f2f2f2]">{{ $myAssignments->count() }}</p>
+    <!-- Completed Card -->
+    <div class="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:border-green-500/30 hover:-translate-y-1">
+        <div class="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-green-500/10 blur-2xl group-hover:bg-green-500/20 transition-all duration-500"></div>
+        <div class="relative flex items-center gap-4">
+            <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-green-500/10 text-green-600 dark:text-green-500 shadow-inner">
+                <i data-lucide="check-circle" class="h-7 w-7"></i>
+            </div>
+            <div>
+                <p class="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Completed</p>
+                <p class="text-3xl font-black text-foreground mt-1">{{ $completedTasks }}</p>
+            </div>
         </div>
     </div>
-    
-    <div class="rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-[#0c0a09] p-6 shadow-sm flex items-center gap-4">
-        <div class="flex h-12 w-12 items-center justify-center rounded-full bg-red-100 text-red-600 dark:bg-red-900/20 dark:text-red-500">
-            <i data-lucide="alert-triangle" class="h-6 w-6"></i>
+
+    <!-- Active Assignments Card -->
+    <div class="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:border-blue-500/30 hover:-translate-y-1">
+        <div class="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-blue-500/10 blur-2xl group-hover:bg-blue-500/20 transition-all duration-500"></div>
+        <div class="relative flex items-center gap-4">
+            <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-500 shadow-inner">
+                <i data-lucide="book-open" class="h-7 w-7"></i>
+            </div>
+            <div>
+                <p class="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Assignments</p>
+                <p class="text-3xl font-black text-foreground mt-1">{{ $myAssignments->where('status', 'active')->count() }}</p>
+            </div>
         </div>
-        <div>
-            <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Overdue</p>
-            <p class="text-2xl font-bold text-[#09090b] dark:text-[#f2f2f2]">{{ $overdueTasks->count() }}</p>
+    </div>
+
+    <!-- Overdue Card -->
+    <div class="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:border-red-500/30 hover:-translate-y-1">
+        <div class="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-red-500/10 blur-2xl group-hover:bg-red-500/20 transition-all duration-500"></div>
+        <div class="relative flex items-center gap-4">
+            <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-red-500/10 text-red-600 dark:text-red-500 shadow-inner">
+                <i data-lucide="alert-circle" class="h-7 w-7"></i>
+            </div>
+            <div>
+                <p class="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Overdue</p>
+                <p class="text-3xl font-black text-foreground mt-1">{{ $overdueTasks->count() }}</p>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-    {{-- Main column --}}
+{{-- Content Grid --}}
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    
+    {{-- Upcoming Deadlines (Main Col) --}}
     <div class="lg:col-span-2 space-y-6">
-        {{-- Upcoming Deadlines --}}
-        <div class="rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-[#0c0a09] shadow-sm">
-            <div class="border-b border-gray-200 dark:border-gray-800 p-6">
-                <div class="flex items-center justify-between">
-                    <h2 class="text-lg font-semibold text-[#09090b] dark:text-[#f2f2f2] flex items-center gap-2">
-                        <i data-lucide="calendar" class="h-5 w-5 text-primary"></i>
-                        Upcoming Deadlines
-                    </h2>
-                    <span class="inline-flex items-center justify-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-semibold text-gray-800 dark:bg-gray-800 dark:text-gray-300">
-                        {{ $upcomingDeadlines->count() }}
-                    </span>
+        <div class="flex items-center justify-between">
+            <h2 class="text-xl font-bold tracking-tight text-foreground flex items-center gap-2">
+                <i data-lucide="calendar-clock" class="h-5 w-5 text-primary"></i>
+                Upcoming Deadlines
+            </h2>
+            <a href="{{ route('calendar.index') }}" class="text-sm font-medium text-primary hover:underline">View Calendar</a>
+        </div>
+        
+        <div class="rounded-2xl border border-border bg-card shadow-sm overflow-hidden">
+            @if($upcomingDeadlines->count() > 0)
+                <div class="divide-y divide-border">
+                    @foreach($upcomingDeadlines as $task)
+                        <div class="p-5 hover:bg-muted/30 transition-colors flex items-center justify-between gap-4 group">
+                            <div class="flex items-center gap-4">
+                                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                                    <i data-lucide="calendar" class="h-5 w-5"></i>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-foreground group-hover:text-primary transition-colors">{{ $task->title }}</p>
+                                    <p class="text-xs text-muted-foreground flex items-center gap-1 mt-1">
+                                        <i data-lucide="book" class="h-3 w-3"></i> {{ $task->assignment->name ?? 'No Assignment' }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-end gap-2">
+                                <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ring-1 ring-inset {{ 
+                                    $task->priority === 'high' ? 'bg-red-500/10 text-red-600 ring-red-500/20' : 
+                                    ($task->priority === 'medium' ? 'bg-amber-500/10 text-amber-600 ring-amber-500/20' : 
+                                    'bg-blue-500/10 text-blue-600 ring-blue-500/20') 
+                                }}">
+                                    {{ ucfirst($task->priority) }} Priority
+                                </span>
+                                <span class="text-xs font-medium {{ \Carbon\Carbon::parse($task->due_date)->isPast() ? 'text-destructive' : 'text-muted-foreground' }}">
+                                    {{ \Carbon\Carbon::parse($task->due_date)->diffForHumans() }}
+                                </span>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
-            </div>
-            
-            <div class="p-6">
-                @forelse($upcomingDeadlines as $task)
-                    <div class="flex items-center justify-between py-3 {{ !$loop->last ? 'border-b border-gray-200 dark:border-gray-800' : '' }}">
-                        <div>
-                            <p class="text-sm font-medium text-[#09090b] dark:text-[#f2f2f2]">{{ $task->title }}</p>
-                            <p class="text-xs text-gray-500 dark:text-gray-400">{{ $task->assignment->name }}</p>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <span class="text-xs font-medium text-gray-500 dark:text-gray-400">
-                                {{ \Carbon\Carbon::parse($task->due_date)->format('M j') }}
-                            </span>
-                            <span class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset {{ $task->priority === 'high' ? 'bg-red-50 text-red-700 ring-red-600/10 dark:bg-red-900/20 dark:text-red-400 dark:ring-red-900/50' : ($task->priority === 'medium' ? 'bg-amber-50 text-amber-700 ring-amber-600/20 dark:bg-amber-900/20 dark:text-amber-400 dark:ring-amber-900/50' : 'bg-gray-50 text-gray-600 ring-gray-500/10 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700/50') }}">
-                                {{ ucfirst($task->priority) }}
-                            </span>
-                        </div>
+            @else
+                <div class="flex flex-col items-center justify-center p-10 text-center">
+                    <div class="flex h-16 w-16 items-center justify-center rounded-full bg-muted mb-4">
+                        <i data-lucide="check" class="h-8 w-8 text-muted-foreground"></i>
                     </div>
-                @empty
-                    <div class="flex flex-col items-center justify-center py-8 text-center">
-                        <i data-lucide="calendar-check" class="h-10 w-10 text-gray-300 dark:text-gray-600 mb-3"></i>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">No upcoming deadlines. You're all caught up!</p>
-                    </div>
-                @endforelse
-            </div>
+                    <p class="text-lg font-semibold text-foreground">You're all caught up!</p>
+                    <p class="text-sm text-muted-foreground">No upcoming tasks or deadlines.</p>
+                </div>
+            @endif
         </div>
-
-        {{-- Deadline Reminders --}}
-        @if($tasksDueToday->count() > 0 || $tasksDueTomorrow->count() > 0 || $overdueTasks->count() > 0)
-        <div class="rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-[#0c0a09] shadow-sm">
-            <div class="border-b border-gray-200 dark:border-gray-800 p-6">
-                <h2 class="text-lg font-semibold text-[#09090b] dark:text-[#f2f2f2] flex items-center gap-2">
-                    <i data-lucide="alarm-clock" class="h-5 w-5 text-amber-500"></i>
-                    Deadline Reminders
-                </h2>
-            </div>
-            
-            <div class="p-6">
-                @if($overdueTasks->count() > 0)
-                    <p class="mb-3 text-xs font-bold uppercase tracking-wider text-red-600 dark:text-red-400">Overdue</p>
-                    @foreach($overdueTasks as $task)
-                        <div class="flex items-center justify-between py-2 {{ !$loop->last || $tasksDueToday->count() > 0 || $tasksDueTomorrow->count() > 0 ? 'border-b border-gray-200 dark:border-gray-800' : '' }}">
-                            <p class="text-sm font-medium text-red-600 dark:text-red-400">{{ $task->title }}</p>
-                            <span class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10 dark:bg-red-900/20 dark:text-red-400 dark:ring-red-900/50">Overdue</span>
-                        </div>
-                    @endforeach
-                @endif
-                
-                @if($tasksDueToday->count() > 0)
-                    <p class="mb-3 text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-500 {{ $overdueTasks->count() > 0 ? 'mt-6' : '' }}">Due Today</p>
-                    @foreach($tasksDueToday as $task)
-                        <div class="flex items-center justify-between py-2 {{ !$loop->last || $tasksDueTomorrow->count() > 0 ? 'border-b border-gray-200 dark:border-gray-800' : '' }}">
-                            <p class="text-sm font-medium text-[#09090b] dark:text-[#f2f2f2]">{{ $task->title }}</p>
-                            <span class="inline-flex items-center rounded-md bg-amber-50 px-2 py-1 text-xs font-medium text-amber-700 ring-1 ring-inset ring-amber-600/20 dark:bg-amber-900/20 dark:text-amber-400 dark:ring-amber-900/50">Today</span>
-                        </div>
-                    @endforeach
-                @endif
-                
-                @if($tasksDueTomorrow->count() > 0)
-                    <p class="mb-3 text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 {{ $overdueTasks->count() > 0 || $tasksDueToday->count() > 0 ? 'mt-6' : '' }}">Due Tomorrow</p>
-                    @foreach($tasksDueTomorrow as $task)
-                        <div class="flex items-center justify-between py-2 {{ !$loop->last ? 'border-b border-gray-200 dark:border-gray-800' : '' }}">
-                            <p class="text-sm font-medium text-[#09090b] dark:text-[#f2f2f2]">{{ $task->title }}</p>
-                            <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10 dark:bg-blue-900/20 dark:text-blue-400 dark:ring-blue-900/50">Tomorrow</span>
-                        </div>
-                    @endforeach
-                @endif
-            </div>
-        </div>
-        @endif
     </div>
-
-    {{-- Sidebar column --}}
+    
+    {{-- Recent Activity (Sidebar Col) --}}
     <div class="space-y-6">
-        <div class="rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-[#0c0a09] shadow-sm">
-            <div class="border-b border-gray-200 dark:border-gray-800 p-6">
-                <h2 class="text-lg font-semibold text-[#09090b] dark:text-[#f2f2f2] flex items-center gap-2">
-                    <i data-lucide="activity" class="h-5 w-5 text-primary"></i>
-                    Recent Activity
-                </h2>
-            </div>
-            
-            <div class="p-6">
-                @forelse($recentActivities as $activity)
-                    <div class="flex gap-4 py-3 {{ !$loop->last ? 'border-b border-gray-200 dark:border-gray-800' : '' }}">
-                        <div class="mt-1 flex-shrink-0">
-                            <div class="h-2 w-2 rounded-full bg-primary ring-4 ring-primary/20"></div>
+        <div class="flex items-center justify-between">
+            <h2 class="text-xl font-bold tracking-tight text-foreground flex items-center gap-2">
+                <i data-lucide="activity" class="h-5 w-5 text-primary"></i>
+                Recent Activity
+            </h2>
+        </div>
+        
+        <div class="rounded-2xl border border-border bg-card shadow-sm p-6">
+            @if($recentActivities->count() > 0)
+                <div class="space-y-6">
+                    @foreach($recentActivities as $activity)
+                        <div class="relative flex gap-4">
+                            @if(!$loop->last)
+                                <div class="absolute left-[11px] top-8 h-full w-[2px] bg-border"></div>
+                            @endif
+                            <div class="relative z-10 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/20 ring-4 ring-card">
+                                <div class="h-2 w-2 rounded-full bg-primary"></div>
+                            </div>
+                            <div class="flex-1 pb-1">
+                                <p class="text-sm text-foreground">
+                                    <span class="font-semibold">{{ $activity->user->name ?? 'Someone' }}</span> 
+                                    {{ $activity->description }}
+                                </p>
+                                <p class="text-xs text-muted-foreground mt-1">
+                                    {{ $activity->created_at->diffForHumans() }}
+                                </p>
+                            </div>
                         </div>
-                        <div>
-                            <p class="text-sm font-medium text-[#09090b] dark:text-[#f2f2f2]">{{ $activity->description }}</p>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">{{ $activity->created_at->diffForHumans() }}</p>
-                        </div>
-                    </div>
-                @empty
-                    <div class="flex flex-col items-center justify-center py-6 text-center">
-                        <i data-lucide="activity" class="h-8 w-8 text-gray-300 dark:text-gray-600 mb-2"></i>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">No recent activity yet.</p>
-                    </div>
-                @endforelse
-            </div>
+                    @endforeach
+                </div>
+            @else
+                <p class="text-sm text-muted-foreground text-center py-8">No recent activity to show.</p>
+            @endif
         </div>
     </div>
 </div>

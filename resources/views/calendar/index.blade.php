@@ -4,272 +4,185 @@
 @section('page-title', 'Calendar')
 
 @section('content')
-<div class="flex justify-between items-center mb-4">
- <div>
- <text-4xl font-extrabold tracking-tight lg:text-5xl class="text-2xl font-semibold tracking-tight font-bold mb-1" style="color: var(--js-text-primary); letter-spacing: -0.5px;">Calendar View</text-4xl font-extrabold tracking-tight lg:text-5xl>
- <p class="mb-0 text-sm" style="color: var(--js-text-muted-foreground);">Track your assignments and task deadlines visually.</p>
- </div>
- 
- {{-- Legend --}}
- <div class="flex items-center gap-6 bg-dark border-0 p-2 px-3 rounded-3 shadow-sm" style="border: 1px solid rgba(255, 255, 255, 0.05) !important;">
- <span class="text-sm font-semibold text-secondary">Legend:</span>
- <div class="flex items-center gap-1">
- <span class="d-inline-block rounded-circle" style="width: 10px; height: 10px; background-color: #3b82f6;"></span>
- <span class="text-sm text-secondary" style="font-size: 0.75rem;">Assignments</span>
- </div>
- <div class="flex items-center gap-1">
- <span class="d-inline-block rounded-circle" style="width: 10px; height: 10px; background-color: #a855f7;"></span>
- <span class="text-sm text-secondary" style="font-size: 0.75rem;">Tasks</span>
- </div>
- </div>
-</div>
+<div x-data="calendarApp()" x-init="initCalendar()">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+        <div>
+            <h1 class="text-3xl font-bold tracking-tight text-foreground">Calendar View</h1>
+            <p class="text-sm text-muted-foreground mt-1">Track your assignments and task deadlines visually.</p>
+        </div>
+        
+        {{-- Legend --}}
+        <div class="flex items-center gap-4 bg-card border border-border px-4 py-2 rounded-lg shadow-sm">
+            <span class="text-sm font-semibold text-muted-foreground">Legend:</span>
+            <div class="flex items-center gap-1.5">
+                <span class="block w-2.5 h-2.5 rounded-full bg-blue-500"></span>
+                <span class="text-xs text-foreground">Assignments</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+                <span class="block w-2.5 h-2.5 rounded-full bg-purple-500"></span>
+                <span class="text-xs text-foreground">Tasks</span>
+            </div>
+        </div>
+    </div>
 
-{{-- Calendar Container --}}
-<div class="rounded-xl border border-border bg-card text-card-foreground shadow border-0 shadow-sm rounded-3 mb-4 bg-dark" style="border: 1px solid rgba(255, 255, 255, 0.05) !important;">
- <div class="p-6 p-3 p-md-4">
- <div id="calendar" style="min-height: 650px;"></div>
- </div>
-</div>
+    {{-- Calendar Container --}}
+    <div class="rounded-xl border border-border bg-card shadow-sm p-4 md:p-6 mb-4">
+        <div id="calendar" class="min-h-[650px]"></div>
+    </div>
 
-{{-- Event Details Modal --}}
-<div class="modal fade" id="eventModal" tabindex="-1">
- <div class="modal-dialog modal-dialog-centered">
- <div class="modal-content border-0 rounded-3 bg-dark" style="border: 1px solid rgba(255, 255, 255, 0.1) !important;">
- <div class="modal-header border-secondary py-2 px-3">
- <span class="badge" id="modalTypeBadge" style="font-size: 0.75rem;">Type</span>
- <button type="button" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2-close inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2-close-white" data-bs-dismiss="modal"></button>
- </div>
- <div class="modal-body py-3 px-3 text-light">
- <text-xl font-semibold tracking-tight class="text-lg font-semibold tracking-tight font-bold mb-3" id="modalTitle">Event Title</text-xl font-semibold tracking-tight>
- 
- <div class="space-y-3">
- <div id="modalSubjectRow" class="mb-2 d-none">
- <span class="text-secondary text-sm d-block">Subject</span>
- <span class="font-medium" id="modalSubject">Subject Value</span>
- </div>
+    {{-- Tailwind Modal for Event Details (Managed by Alpine.js) --}}
+    <div x-show="isModalOpen" style="display: none;" class="relative z-50" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div x-show="isModalOpen" x-transition.opacity class="fixed inset-0 bg-background/80 backdrop-blur-sm transition-opacity"></div>
 
- <div id="modalAssignmentRow" class="mb-2 d-none">
- <span class="text-secondary text-sm d-block">Related Assignment</span>
- <span class="font-medium" id="modalAssignment">Assignment Value</span>
- </div>
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div x-show="isModalOpen" 
+                     x-transition:enter="ease-out duration-300" 
+                     x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" 
+                     x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" 
+                     x-transition:leave="ease-in duration-200" 
+                     x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" 
+                     x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" 
+                     class="relative transform overflow-hidden rounded-xl border border-border bg-card text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    
+                    <div class="border-b border-border px-4 py-3 flex justify-between items-center">
+                        <span class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ring-1 ring-inset uppercase" 
+                              :class="eventData.type === 'Assignment' ? 'bg-blue-500/10 text-blue-500 ring-blue-500/20' : 'bg-purple-500/10 text-purple-500 ring-purple-500/20'" 
+                              x-text="eventData.type">Type</span>
+                        <button type="button" @click="closeModal()" class="text-muted-foreground hover:text-foreground focus:outline-none">
+                            <i data-lucide="x" class="h-5 w-5"></i>
+                        </button>
+                    </div>
 
- <div id="modalLecturerRow" class="mb-2 d-none">
- <span class="text-secondary text-sm d-block">Lecturer</span>
- <span class="font-medium" id="modalLecturer">Lecturer Value</span>
- </div>
+                    <div class="px-6 py-5">
+                        <h3 class="text-lg font-semibold text-foreground mb-4" id="modal-title" x-text="eventData.title">Event Title</h3>
+                        
+                        <div class="space-y-4 text-sm">
+                            <template x-if="eventData.type === 'Assignment'">
+                                <div>
+                                    <span class="block text-muted-foreground text-xs font-medium uppercase mb-1">Subject</span>
+                                    <span class="text-foreground font-medium" x-text="eventData.subject"></span>
+                                </div>
+                            </template>
+                            
+                            <template x-if="eventData.type === 'Assignment' && eventData.lecturer">
+                                <div>
+                                    <span class="block text-muted-foreground text-xs font-medium uppercase mb-1">Lecturer</span>
+                                    <span class="text-foreground font-medium" x-text="eventData.lecturer"></span>
+                                </div>
+                            </template>
 
- <div class="row mb-2">
- <div class="col-6">
- <span class="text-secondary text-sm d-block">Due Date</span>
- <span class="font-medium" id="modalDueDate">Due Date Value</span>
- </div>
- <div class="col-6">
- <span class="text-secondary text-sm d-block">Status</span>
- <span class="badge" id="modalStatusBadge">Status Value</span>
- </div>
- </div>
+                            <template x-if="eventData.type === 'Task'">
+                                <div>
+                                    <span class="block text-muted-foreground text-xs font-medium uppercase mb-1">Related Assignment</span>
+                                    <span class="text-foreground font-medium" x-text="eventData.assignmentName"></span>
+                                </div>
+                            </template>
 
- <div id="modalPriorityRow" class="mb-2 d-none">
- <span class="text-secondary text-sm d-block">Priority</span>
- <span class="badge" id="modalPriorityBadge">Priority Value</span>
- </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <span class="block text-muted-foreground text-xs font-medium uppercase mb-1">Due Date</span>
+                                    <span class="text-foreground font-medium" x-text="eventData.due"></span>
+                                </div>
+                                <div>
+                                    <span class="block text-muted-foreground text-xs font-medium uppercase mb-1">Status</span>
+                                    <span class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold bg-secondary text-secondary-foreground uppercase" x-text="eventData.status"></span>
+                                </div>
+                            </div>
 
- <div class="mb-2">
- <span class="text-secondary text-sm d-block">Description</span>
- <p class="text-sm mb-0" id="modalDescription" style="white-space: pre-wrap; color: var(--js-text-secondary);"></p>
- </div>
- </div>
- </div>
- <div class="modal-footer border-secondary py-2 px-3">
- <button type="button" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2-sm inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2-outline-secondary rounded-2" data-bs-dismiss="modal">Close</button>
- <a href="#" id="modalActionBtn" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2-sm inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2-primary rounded-2">View Details</a>
- </div>
- </div>
- </div>
+                            <template x-if="eventData.type === 'Task'">
+                                <div>
+                                    <span class="block text-muted-foreground text-xs font-medium uppercase mb-1">Priority</span>
+                                    <span class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ring-1 ring-inset" 
+                                          :class="{'bg-red-500/10 text-red-500 ring-red-500/20': eventData.priority === 'High', 'bg-amber-500/10 text-amber-500 ring-amber-500/20': eventData.priority === 'Medium', 'bg-blue-500/10 text-blue-500 ring-blue-500/20': eventData.priority === 'Low'}"
+                                          x-text="eventData.priority"></span>
+                                </div>
+                            </template>
+
+                            <template x-if="eventData.description">
+                                <div>
+                                    <span class="block text-muted-foreground text-xs font-medium uppercase mb-1">Description</span>
+                                    <p class="text-muted-foreground whitespace-pre-wrap" x-text="eventData.description"></p>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+
+                    <div class="bg-muted/50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 border-t border-border">
+                        <a :href="eventData.url" class="inline-flex w-full justify-center rounded-md bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground shadow-sm hover:bg-primary/90 sm:ml-3 sm:w-auto">View Details</a>
+                        <button type="button" @click="closeModal()" class="mt-3 inline-flex w-full justify-center rounded-md bg-background px-3 py-2 text-sm font-semibold text-foreground shadow-sm ring-1 ring-inset ring-border hover:bg-accent sm:mt-0 sm:w-auto">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @push('scripts')
-{{-- Load FullCalendar v6 CDN --}}
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
 
 <style>
- /* Dark Theme Customization for FullCalendar */
  .fc {
- --fc-border-color: rgba(255, 255, 255, 0.08);
- --fc-daygrid-event-dot-width: 8px;
- --fc-button-bg-color: rgba(255, 255, 255, 0.05);
- --fc-button-border-color: rgba(255, 255, 255, 0.1);
- --fc-button-hover-bg-color: rgba(255, 255, 255, 0.1);
- --fc-button-hover-border-color: rgba(255, 255, 255, 0.2);
- --fc-button-active-bg-color: var(--js-accent, #3b82f6);
- --fc-button-active-border-color: var(--js-accent, #3b82f6);
- --fc-event-bg-color: #3b82f6;
- --fc-event-border-color: #3b82f6;
- --fc-page-bg-color: #111827;
- color: #F1F5F9;
- font-family: inherit;
+    --fc-border-color: hsl(var(--border));
+    --fc-page-bg-color: transparent;
+    --fc-neutral-bg-color: hsl(var(--muted));
+    --fc-button-bg-color: hsl(var(--secondary));
+    --fc-button-border-color: hsl(var(--border));
+    --fc-button-hover-bg-color: hsl(var(--accent));
+    --fc-button-hover-border-color: hsl(var(--border));
+    --fc-button-active-bg-color: hsl(var(--primary));
+    --fc-button-active-border-color: hsl(var(--primary));
+    --fc-today-bg-color: hsla(var(--primary), 0.1);
+    color: hsl(var(--foreground));
  }
-
- .fc .fc-toolbar-title {
- font-size: 1.25rem;
- font-weight: 700;
- letter-spacing: -0.3px;
- color: #F1F5F9;
- }
-
- .fc .fc-col-header-cell-cushion {
- color: #94A3B8;
- font-size: 0.85rem;
- font-weight: 600;
- text-transform: uppercase;
- padding: 8px 0;
- }
-
- .fc .fc-daygrid-day-number {
- color: #64748B;
- font-size: 0.875rem;
- padding: 6px 8px;
- text-decoration: none;
- }
-
- .fc .fc-day-today {
- background-color: rgba(59, 130, 246, 0.05) !important;
- }
-
- .fc .fc-day-today .fc-daygrid-day-number {
- color: var(--js-accent, #3b82f6);
- font-weight: 700;
- }
-
- /* Event Styles */
- .fc-event {
- cursor: pointer;
- padding: 3px 6px;
- border-radius: 4px;
- font-size: 0.75rem;
- font-weight: 500;
- border: none !important;
- }
-
- .fc-event-assignment {
- background-color: #3b82f6 !important; /* blue */
- color: #ffffff !important;
- }
-
- .fc-event-task {
- background-color: #a855f7 !important; /* purple */
- color: #ffffff !important;
- }
-
- .fc .fc-button-primary:disabled {
- background-color: rgba(255, 255, 255, 0.02);
- border-color: rgba(255, 255, 255, 0.05);
- color: #475569;
- }
-
- /* Mobile Adaptations */
- @media (max-width: 768px) {
- .fc .fc-toolbar {
- flex-direction: column;
- gap: 10px;
- }
- }
+ .fc .fc-toolbar-title { font-size: 1.25rem; font-weight: 700; color: hsl(var(--foreground)); }
+ .fc .fc-col-header-cell-cushion { color: hsl(var(--muted-foreground)); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; padding: 8px 0; }
+ .fc .fc-daygrid-day-number { color: hsl(var(--muted-foreground)); padding: 6px 8px; }
+ .fc-event { cursor: pointer; padding: 2px 4px; border-radius: 4px; border: none; font-size: 0.75rem; font-weight: 500; }
+ .fc-event-assignment { background-color: #3b82f6 !important; color: #fff !important; }
+ .fc-event-task { background-color: #a855f7 !important; color: #fff !important; }
 </style>
 
 <script>
- document.addEventListener('DOMContentLoaded', function() {
- const calendarEl = document.getElementById('calendar');
- const eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
-
- // Modal Elements
- const modalTypeBadge = document.getElementById('modalTypeBadge');
- const modalTitle = document.getElementById('modalTitle');
- const modalSubjectRow = document.getElementById('modalSubjectRow');
- const modalSubject = document.getElementById('modalSubject');
- const modalAssignmentRow = document.getElementById('modalAssignmentRow');
- const modalAssignment = document.getElementById('modalAssignment');
- const modalLecturerRow = document.getElementById('modalLecturerRow');
- const modalLecturer = document.getElementById('modalLecturer');
- const modalDueDate = document.getElementById('modalDueDate');
- const modalStatusBadge = document.getElementById('modalStatusBadge');
- const modalPriorityRow = document.getElementById('modalPriorityRow');
- const modalPriorityBadge = document.getElementById('modalPriorityBadge');
- const modalDescription = document.getElementById('modalDescription');
- const modalActionBtn = document.getElementById('modalActionBtn');
-
- const calendar = new FullCalendar.Calendar(calendarEl, {
- initialView: 'dayGridMonth',
- headerToolbar: {
- left: 'prev,next today',
- center: 'title',
- right: 'dayGridMonth,timeGridWeek,listMonth'
- },
- editable: false,
- selectable: false,
- events: "{{ route('calendar.events') }}",
- eventClick: function(info) {
- // Prevent redirection immediately
- info.jsEvent.preventDefault();
-
- const props = info.event.extendedProps;
-
- // Configure modal contents based on type
- if (props.type === 'Assignment') {
- modalTypeBadge.className = 'badge bg-primary uppercase';
- modalTypeBadge.textContent = 'Assignment';
- 
- modalSubjectRow.classList.remove('d-none');
- modalSubject.textContent = props.subject;
-
- modalLecturerRow.classList.remove('d-none');
- modalLecturer.textContent = props.lecturer;
-
- modalAssignmentRow.classList.add('d-none');
- modalPriorityRow.classList.add('d-none');
- } else {
- modalTypeBadge.className = 'badge bg-purple uppercase';
- modalTypeBadge.textContent = 'Task';
- modalTypeBadge.style.backgroundColor = '#a855f7';
-
- modalAssignmentRow.classList.remove('d-none');
- modalAssignment.textContent = props.assignmentName;
-
- modalPriorityRow.classList.remove('d-none');
- modalPriorityBadge.textContent = props.priority;
- if (props.priority === 'High') {
- modalPriorityBadge.className = 'badge bg-danger';
- } else if (props.priority === 'Medium') {
- modalPriorityBadge.className = 'badge bg-warning text-dark';
- } else {
- modalPriorityBadge.className = 'badge bg-info';
- }
-
- modalSubjectRow.classList.add('d-none');
- modalLecturerRow.classList.add('d-none');
- }
-
- modalTitle.textContent = info.event.title.replace(/📚\s*|📝\s*/, '');
- modalDueDate.textContent = props.due;
- modalDescription.textContent = props.description;
-
- // Status Badge
- modalStatusBadge.textContent = props.status.toUpperCase();
- if (props.status === 'completed' || props.status === 'done') {
- modalStatusBadge.className = 'badge bg-success';
- } else if (props.status === 'in_progress' || props.status === 'doing') {
- modalStatusBadge.className = 'badge bg-warning text-dark';
- } else {
- modalStatusBadge.className = 'badge bg-secondary';
- }
-
- modalActionBtn.href = info.event.url;
-
- eventModal.show();
- }
- });
-
- calendar.render();
- });
+document.addEventListener('alpine:init', () => {
+    Alpine.data('calendarApp', () => ({
+        isModalOpen: false,
+        eventData: {},
+        
+        closeModal() {
+            this.isModalOpen = false;
+        },
+        
+        initCalendar() {
+            const calendarEl = document.getElementById('calendar');
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar: { left: 'prev,next today', center: 'title', right: 'dayGridMonth,timeGridWeek,listMonth' },
+                events: "{{ route('calendar.events') }}",
+                eventClick: (info) => {
+                    info.jsEvent.preventDefault();
+                    const props = info.event.extendedProps;
+                    
+                    this.eventData = {
+                        title: info.event.title.replace(/📚\s*|📝\s*/, ''),
+                        type: props.type,
+                        subject: props.subject,
+                        lecturer: props.lecturer,
+                        assignmentName: props.assignmentName,
+                        due: props.due,
+                        status: props.status,
+                        priority: props.priority,
+                        description: props.description,
+                        url: info.event.url
+                    };
+                    
+                    this.isModalOpen = true;
+                }
+            });
+            calendar.render();
+        }
+    }));
+});
 </script>
 @endpush
 @endsection

@@ -4,99 +4,97 @@
 @section('page-title', 'Assignments')
 
 @section('content')
-<div class="flex justify-between items-center mb-4">
- <div>
- <text-4xl font-extrabold tracking-tight lg:text-5xl class="text-2xl font-semibold tracking-tight font-bold mb-1" style="color: var(--js-text-primary); letter-spacing: -0.5px;">Assignments</text-4xl font-extrabold tracking-tight lg:text-5xl>
- <p class="mb-0 text-sm" style="color: var(--js-text-muted-foreground);">Manage all your group assignments in one place.</p>
- </div>
- <a href="{{ route('assignments.create') }}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2" id="new-assignment-inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2">
- <i data-lucide="plus" class="w-4 h-4 me-1"></i> New Assignment
- </a>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+    <div>
+        <h1 class="text-3xl font-bold tracking-tight text-foreground">Assignments</h1>
+        <p class="text-sm text-muted-foreground mt-1">Manage all your group assignments in one place.</p>
+    </div>
+    <a href="{{ route('assignments.create') }}" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 h-9">
+        <i data-lucide="plus" class="w-4 h-4 mr-2"></i> New Assignment
+    </a>
 </div>
 
 @if($assignments->count() > 0)
-<div class="row g-3">
- @foreach($assignments as $assignment)
- <div class="col-12 col-md-6 col-xl-4">
- <div class="rounded-xl border border-border bg-card text-card-foreground shadow border-0 shadow-sm h-full card-hover">
- <div class="p-6 flex flex-col">
- <div class="flex justify-between items-start mb-3">
- <div>
- <span class="badge bg-{{ $assignment->status === 'active' ? 'success' : 'secondary' }} mb-2">{{ ucfirst($assignment->status) }}</span>
- <text-base font-semibold tracking-tight class="font-semibold mb-1" style="color: var(--js-text-primary);">{{ $assignment->name }}</text-base font-semibold tracking-tight>
- <p class="text-sm mb-0" style="color: var(--js-text-muted-foreground);">{{ $assignment->subject }}</p>
- </div>
- </div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    @foreach($assignments as $assignment)
+    <div class="group relative flex flex-col rounded-xl border border-border bg-card text-card-foreground shadow-sm transition-all hover:shadow-md hover:border-primary/50">
+        <div class="p-6 flex flex-col flex-1">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <span class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold mb-3 {{ $assignment->status === 'active' ? 'bg-green-500/10 text-green-600 dark:text-green-400 ring-1 ring-inset ring-green-500/20' : 'bg-gray-500/10 text-gray-600 dark:text-gray-400 ring-1 ring-inset ring-gray-500/20' }}">
+                        {{ ucfirst($assignment->status) }}
+                    </span>
+                    <h3 class="font-semibold text-lg leading-none tracking-tight mb-1 text-foreground">{{ $assignment->name }}</h3>
+                    <p class="text-sm text-muted-foreground">{{ $assignment->subject }}</p>
+                </div>
+            </div>
 
- <div class="flex gap-6 mb-3" style="font-size: 0.8125rem;">
- @if($assignment->lecturer_name)
- <div class="flex items-center gap-1" style="color: var(--js-text-secondary);">
- <i data-lucide="user" class="w-3 h-3"></i>
- {{ $assignment->lecturer_name }}
- </div>
- @endif
- @if($assignment->due_date)
- <div class="flex items-center gap-1" style="color: var(--js-text-secondary);">
- <i data-lucide="calendar" class="w-3 h-3"></i>
- {{ \Carbon\Carbon::parse($assignment->due_date)->format('M j, Y') }}
- </div>
- @endif
- </div>
+            <div class="flex flex-col gap-2 mb-6 mt-2 text-sm text-muted-foreground">
+                @if($assignment->lecturer_name)
+                <div class="flex items-center gap-2">
+                    <i data-lucide="user" class="w-4 h-4 opacity-70"></i>
+                    <span>{{ $assignment->lecturer_name }}</span>
+                </div>
+                @endif
+                @if($assignment->due_date)
+                <div class="flex items-center gap-2">
+                    <i data-lucide="calendar" class="w-4 h-4 opacity-70"></i>
+                    <span>{{ \Carbon\Carbon::parse($assignment->due_date)->format('M j, Y') }}</span>
+                </div>
+                @endif
+            </div>
 
- <div class="mt-auto">
- <div class="flex justify-between items-center mb-2">
- <div class="flex items-center gap-2">
- <div class="flex" style="margin-left: 0;">
- @foreach($assignment->members->take(3) as $member)
- <span class="avatar" style="width:24px; height:24px; font-size: 0.6rem; margin-left: {{ $loop->first ? '0' : '-6px' }}; border: 2px solid var(--js-bg-surface);" title="{{ $member->user->name }}">
- {{ strtoupper(substr($member->user->name, 0, 1)) }}
- </span>
- @endforeach
- @if($assignment->members->count() > 3)
- <span class="avatar" style="width:24px; height:24px; font-size: 0.55rem; margin-left: -6px; border: 2px solid var(--js-bg-surface); background: var(--js-bg-elevated); color: var(--js-text-secondary);">
- +{{ $assignment->members->count() - 3 }}
- </span>
- @endif
- </div>
- <text-sm style="color: var(--js-text-muted-foreground);">{{ $assignment->tasks_count ?? 0 }} tasks</text-sm>
- </div>
- </div>
+            <div class="mt-auto pt-4 border-t border-border/50">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="flex items-center gap-2">
+                        <div class="flex -space-x-2 overflow-hidden">
+                            @foreach($assignment->members->take(3) as $member)
+                            <span class="inline-block h-6 w-6 rounded-full ring-2 ring-background bg-primary/20 flex items-center justify-center text-[10px] font-bold text-primary" title="{{ $member->user->name }}">
+                                {{ strtoupper(substr($member->user->name, 0, 1)) }}
+                            </span>
+                            @endforeach
+                            @if($assignment->members->count() > 3)
+                            <span class="inline-block h-6 w-6 rounded-full ring-2 ring-background bg-muted flex items-center justify-center text-[10px] font-medium text-muted-foreground">
+                                +{{ $assignment->members->count() - 3 }}
+                            </span>
+                            @endif
+                        </div>
+                        <span class="text-xs text-muted-foreground">{{ $assignment->tasks_count ?? 0 }} tasks</span>
+                    </div>
+                </div>
 
- <div class="flex gap-2">
- <a href="{{ route('assignments.show', $assignment) }}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2-sm inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2-outline-primary flex-1">View</a>
- @can('update', $assignment)
- <a href="{{ route('assignments.edit', $assignment) }}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2-sm inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2-outline-secondary">
- <i data-lucide="pencil" class="w-3 h-3"></i>
- </a>
- @endcan
- @can('delete', $assignment)
- <form method="POST" action="{{ route('assignments.destroy', $assignment) }}" onsubmit="return confirm('Are you sure you want to delete this assignment? This action cannot be undone.');">
- @csrf
- @method('DELETE')
- <button type="submit" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2-sm inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2-outline-danger">
- <i data-lucide="trash-2" class="w-3 h-3"></i>
- </button>
- </form>
- @endcan
- </div>
- </div>
- </div>
- </div>
- </div>
- @endforeach
+                <div class="flex gap-2">
+                    <a href="{{ route('assignments.show', $assignment) }}" class="inline-flex flex-1 items-center justify-center rounded-md text-sm font-medium transition-colors bg-primary/10 text-primary hover:bg-primary/20 h-9 px-4">View</a>
+                    @can('update', $assignment)
+                    <a href="{{ route('assignments.edit', $assignment) }}" class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 w-9">
+                        <i data-lucide="pencil" class="w-4 h-4"></i>
+                    </a>
+                    @endcan
+                    @can('delete', $assignment)
+                    <form method="POST" action="{{ route('assignments.destroy', $assignment) }}" onsubmit="return confirm('Are you sure you want to delete this assignment?');" class="inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors border border-destructive/20 text-destructive hover:bg-destructive hover:text-destructive-foreground h-9 w-9">
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    </form>
+                    @endcan
+                </div>
+            </div>
+        </div>
+    </div>
+    @endforeach
 </div>
 @else
-<div class="rounded-xl border border-border bg-card text-card-foreground shadow border-0 shadow-sm">
- <div class="empty-state">
- <div class="empty-state-icon">
- <i data-lucide="book-open" class="w-6 h-6"></i>
- </div>
- <text-base font-semibold tracking-tight class="font-semibold mb-1" style="color: var(--js-text-primary);">No assignments yet</text-base font-semibold tracking-tight>
- <p class="text-sm mb-3" style="color: var(--js-text-muted-foreground);">Create your first assignment to get started.</p>
- <a href="{{ route('assignments.create') }}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2-sm">
- <i data-lucide="plus" class="w-4 h-4 me-1"></i> Create Assignment
- </a>
- </div>
+<div class="rounded-xl border border-border bg-card text-card-foreground shadow-sm p-12 text-center">
+    <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 mb-4">
+        <i data-lucide="book-open" class="h-6 w-6 text-primary"></i>
+    </div>
+    <h3 class="text-lg font-semibold text-foreground mb-1">No assignments yet</h3>
+    <p class="text-sm text-muted-foreground mb-4">Create your first assignment to get started.</p>
+    <a href="{{ route('assignments.create') }}" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 h-9">
+        <i data-lucide="plus" class="w-4 h-4 mr-2"></i> Create Assignment
+    </a>
 </div>
 @endif
 @endsection
