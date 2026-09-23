@@ -10,8 +10,8 @@
  <div class="empty-state-icon mx-auto mb-4" style="width: 72px; height: 72px; border-radius: 18px; background: var(--js-accent-muted); color: var(--js-accent-hover); display: flex; align-items: center; justify-content: center;">
  <i data-lucide="kanban" style="width: 32px; height: 32px;"></i>
  </div>
- <text-xl font-semibold tracking-tight class="font-bold mb-2" style="color: var(--js-text-primary); letter-spacing: -0.5px;">Create Your First Assignment</text-xl font-semibold tracking-tight>
- <p class="mb-4 text-secondary mx-auto" style="max-width: 360px; font-size: 0.9rem; line-height: 1.6; color: var(--js-text-muted-foreground);">
+ <div class="font-bold mb-2" style=" letter-spacing: -0.5px;">Create Your First Assignment</div>
+ <p class="mb-4 text-muted-foreground mx-auto" style="max-width: 360px; font-size: 0.9rem; line-height: 1.6; ">
  You haven't created or joined any assignments yet. Set up your first assignment to start tracking tasks on the Kanban board.
  </p>
  <div class="flex flex-col flex-sm-row gap-2 justify-center items-center">

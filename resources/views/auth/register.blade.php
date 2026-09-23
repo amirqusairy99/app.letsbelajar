@@ -1,8 +1,8 @@
 <x-guest-layout>
  <div class="rounded-xl border border-border bg-card text-card-foreground shadow shadow-sm border-0 rounded-3" style="border-color: var(--js-border-strong) !important; background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(12px);">
  <div class="p-6 p-4">
- <text-3xl font-semibold tracking-tight class="text-xl font-semibold tracking-tight mb-1 font-bold" style="color: var(--js-text-primary);">Create an account</text-3xl font-semibold tracking-tight>
- <p class="mb-4" style="color: var(--js-text-muted-foreground); font-size: 0.875rem;">Get started with LetsBelajar for free</p>
+ <h2 class="text-xl font-semibold tracking-tight mb-1 font-bold" style="">Create an account</h2>
+ <p class="mb-4" style=" font-size: 0.875rem;">Get started with LetsBelajar for free</p>
 
  <form method="POST" action="{{ route('register') }}">
  @csrf
@@ -38,7 +38,7 @@
  <button type="submit" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2 w-full py-2">Create account</button>
  </form>
 
- <div class="text-center my-3" style="color: var(--js-text-muted-foreground); font-size: 0.8rem;">or</div>
+ <div class="text-center my-3" style=" font-size: 0.8rem;">or</div>
 
  <button type="button" id="google-signin" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2-outline-light w-full py-2 flex items-center justify-center gap-2">
  <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
@@ -51,7 +51,7 @@
  </button>
  <div id="google-error" class="text-destructive text-sm text-center mt-2" style="min-height: 1rem;"></div>
 
- <p class="text-center mt-3 mb-0 text-sm" style="color: var(--js-text-muted-foreground);">
+ <p class="text-center mt-3 mb-0 text-sm" style="">
  Already have an account? <a href="{{ route('login') }}" class="no-underline font-medium" style="color: var(--js-accent-hover);">Sign in</a>
  </p>
  </div>

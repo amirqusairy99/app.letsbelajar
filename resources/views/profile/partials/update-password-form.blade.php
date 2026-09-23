@@ -1,8 +1,8 @@
 <section>
  <header>
- <text-3xl font-semibold tracking-tight class="text-lg font-medium text-gray-900">
+ <div class="text-lg font-medium text-gray-900">
  {{ __('Update Password') }}
- </text-3xl font-semibold tracking-tight>
+ </div>
 
  <p class="mt-1 text-sm text-gray-600">
  {{ __('Ensure your account is using a long, random password to stay secure.') }}

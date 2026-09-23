@@ -86,7 +86,7 @@
                                 </div>
                                 <div>
                                     <span class="block text-muted-foreground text-xs font-medium uppercase mb-1">Status</span>
-                                    <span class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold bg-secondary text-secondary-foreground uppercase" x-text="eventData.status"></span>
+                                    <span class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold bg-secondary text-muted-foreground-foreground uppercase" x-text="eventData.status"></span>
                                 </div>
                             </div>
 
@@ -108,7 +108,7 @@
                         </div>
                     </div>
 
-                    <div class="bg-muted/50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 border-t border-border">
+                    <div class="bg-muted/50 px-4 py-3 sm:flex sm:flex-grid grid-cols-1 md:grid-cols-12 gap-4-reverse sm:px-6 border-t border-border">
                         <a :href="eventData.url" class="inline-flex w-full justify-center rounded-md bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground shadow-sm hover:bg-primary/90 sm:ml-3 sm:w-auto">View Details</a>
                         <button type="button" @click="closeModal()" class="mt-3 inline-flex w-full justify-center rounded-md bg-background px-3 py-2 text-sm font-semibold text-foreground shadow-sm ring-1 ring-inset ring-border hover:bg-accent sm:mt-0 sm:w-auto">Close</button>
                     </div>

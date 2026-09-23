@@ -5,17 +5,17 @@
 
 @section('content')
 <div class="mb-4">
- <text-4xl font-extrabold tracking-tight lg:text-5xl class="text-2xl font-semibold tracking-tight font-bold mb-1" style="color: var(--js-text-primary); letter-spacing: -0.5px;">
+ <h2 :text-5xl class="text-2xl font-semibold tracking-tight font-bold mb-1" style=" letter-spacing: -0.5px;">
  Manage Users
- </text-4xl font-extrabold tracking-tight lg:text-5xl>
- <p class="mb-0" style="color: var(--js-text-muted-foreground);">Enable or disable user accounts. Disabled users are shown a payment screen on login.</p>
+ </h2>
+ <p class="mb-0" style="">Enable or disable user accounts. Disabled users are shown a payment screen on login.</p>
 </div>
 
 <div class="rounded-xl border border-border bg-card text-card-foreground shadow border-0 shadow-sm">
  <div class="p-6 p-0">
  <div class="w-full overflow-auto">
- <w-full caption-bottom text-sm class="w-full caption-bottom text-sm w-full caption-bottom text-sm-hover align-middle mb-0">
- <thead style="color: var(--js-text-muted-foreground);">
+ <table class="w-full caption-bottom text-sm w-full caption-bottom text-sm-hover align-middle mb-0">
+ <thead style="">
  <tr>
  <th class="px-3 py-3 font-semibold">Name</th>
  <th class="px-3 py-3 font-semibold">Email</th>
@@ -31,13 +31,13 @@
  <div class="flex items-center gap-2">
  <span class="avatar-sm" style="width: 32px; height: 32px; font-size: 0.8rem;">{{ strtoupper(substr($user->name, 0, 1)) }}</span>
  <div>
- <p class="mb-0 font-medium" style="color: var(--js-text-primary);">{{ $user->name }}</p>
+ <p class="mb-0 font-medium" style="">{{ $user->name }}</p>
  @if($user->isAdmin())<span class="badge bg-info" style="font-size: 0.6rem;">Admin</span>@endif
  </div>
  </div>
  </td>
- <td class="px-3 py-3" style="color: var(--js-text-secondary);">{{ $user->email }}</td>
- <td class="px-3 py-3" style="color: var(--js-text-muted-foreground);">{{ $user->created_at->format('M j, Y') }}</td>
+ <td class="px-3 py-3" style="">{{ $user->email }}</td>
+ <td class="px-3 py-3" style="">{{ $user->created_at->format('M j, Y') }}</td>
  <td class="px-3 py-3">
  @if($user->isDisabled())
  <span class="badge bg-danger">Disabled</span>
@@ -61,11 +61,11 @@
  </tr>
  @empty
  <tr>
- <td colspan="5" class="text-center py-4" style="color: var(--js-text-muted-foreground);">No users found.</td>
+ <td colspan="5" class="text-center py-4" style="">No users found.</td>
  </tr>
  @endforelse
  </tbody>
- </w-full caption-bottom text-sm>
+ </table>
  </div>
  </div>
  @if($users->hasPages())

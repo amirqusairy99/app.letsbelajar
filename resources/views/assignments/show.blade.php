@@ -31,16 +31,16 @@
  </div>
 </div>
 
-<div class="row g-3">
- <div class="col-12 col-lg-8">
- <div class="rounded-xl border border-border bg-card text-card-foreground shadow border-0 shadow-sm rounded-3 mb-3">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+ <div class="lg:col-span-2 flex flex-col gap-6">
+ <div class="rounded-xl border border-border bg-card text-card-foreground shadow">
  <div class="p-6">
  <h2 class="text-base font-semibold tracking-tight text-foreground mb-2">Description</h2>
  <p class="text-muted-foreground mb-0">{{ $assignment->description ?: 'No description provided.' }}</p>
  </div>
  </div>
 
- <div class="rounded-xl border border-border bg-card text-card-foreground shadow border-0 shadow-sm rounded-3">
+ <div class="rounded-xl border border-border bg-card text-card-foreground shadow">
  <div class="p-6">
  <h2 class="text-base font-semibold tracking-tight text-foreground mb-3">Members</h2>
  @foreach($assignment->members as $member)
@@ -57,20 +57,20 @@
  @endforeach
 
  @can('manageMembers', $assignment)
- <form method="POST" action="{{ route('members.store', $assignment) }}" class="mt-3 pt-3 border-top border-secondary">
+ <form method="POST" action="{{ route('members.store', $assignment) }}" class="mt-3 pt-3 border-t border-border">
  @csrf
- <div class="row g-2">
- <div class="col-12 col-md-5">
- <input type="email" name="email" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 rounded-2 @error('email') is-invalid @enderror" placeholder="Invite by email">
- @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
+ <div class="grid grid-cols-1 md:grid-cols-12 gap-2">
+ <div class="md:col-span-5">
+ <input type="email" name="email" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 rounded-2 @error('email') is-invalid @enderror" placeholder="Invite by email">
+ @error('email')<div class="text-sm text-destructive mt-1">{{ $message }}</div>@enderror
  </div>
- <div class="col-12 col-md-3">
- <select name="role" class="flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 rounded-2">
+ <div class="md:col-span-3">
+ <select name="role" class="flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 rounded-2">
  <option value="member">Member</option>
  <option value="owner">Owner</option>
  </select>
  </div>
- <div class="col-12 col-md-4">
+ <div class="md:col-span-4">
  <button type="submit" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2 rounded-2 w-full">Invite</button>
  </div>
  </div>
@@ -80,8 +80,8 @@
  </div>
  </div>
 
- <div class="col-12 col-lg-4">
- <div class="rounded-xl border border-border bg-card text-card-foreground shadow border-0 shadow-sm rounded-3 mb-3">
+ <div class="lg:col-span-1 flex flex-col gap-6">
+ <div class="rounded-xl border border-border bg-card text-card-foreground shadow">
  <div class="p-6">
  <h2 class="text-base font-semibold tracking-tight text-foreground mb-3">Details</h2>
  <p class="mb-2 text-muted-foreground text-sm">Status</p>
@@ -93,10 +93,10 @@
  </div>
  </div>
 
- <div class="rounded-xl border border-border bg-card text-card-foreground shadow border-0 shadow-sm rounded-3">
+ <div class="rounded-xl border border-border bg-card text-card-foreground shadow">
  <div class="p-6">
  <h2 class="text-base font-semibold tracking-tight text-foreground mb-3">Quick Actions</h2>
- <div class="d-grid gap-2">
+ <div class="flex flex-col gap-2">
  <a href="{{ route('files.index', $assignment) }}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 rounded-2 text-left">
  <i data-lucide="folder" class="w-4 h-4 me-2"></i> Files
  </a>

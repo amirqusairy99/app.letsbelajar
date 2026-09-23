@@ -24,7 +24,7 @@
  <div class="flex justify-between items-center mb-3">
  <div class="form-check">
  <input type="checkbox" class="form-check-input" id="remember_me" name="remember">
- <label class="form-check-label text-sm" for="remember_me" style="color: var(--js-text-secondary);">Remember me</label>
+ <label class="form-check-label text-sm" for="remember_me" style="">Remember me</label>
  </div>
  @if (Route::has('password.request'))
  <a href="{{ route('password.request') }}" class="text-sm no-underline" style="color: var(--js-accent-hover);">Forgot password?</a>
@@ -33,7 +33,7 @@
  <button type="submit" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2 w-full py-2">Sign in</button>
  </form>
 
- <div class="text-center my-3" style="color: var(--js-text-muted-foreground); font-size: 0.8rem;">or</div>
+ <div class="text-center my-3" style=" font-size: 0.8rem;">or</div>
 
  <button type="button" id="google-signin" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2-outline-light w-full py-2 flex items-center justify-center gap-2">
  <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
@@ -46,7 +46,7 @@
  </button>
  <div id="google-error" class="text-destructive text-sm text-center mt-2" style="min-height: 1rem;"></div>
 
- <p class="text-center mt-3 mb-0 text-sm" style="color: var(--js-text-muted-foreground);">
+ <p class="text-center mt-3 mb-0 text-sm" style="">
  Don't have an account? <a href="{{ route('register') }}" class="no-underline font-medium" style="color: var(--js-accent-hover);">Sign up</a>
  </p>
  </div>

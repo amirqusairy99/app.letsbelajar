@@ -8,9 +8,9 @@
  <div>
  <div class="flex items-center gap-2 mb-1">
  <span class="badge bg-danger rounded-1 uppercase font-semibold" style="font-size: 0.75rem;">PDF</span>
- <text-4xl font-extrabold tracking-tight lg:text-5xl class="text-2xl font-semibold tracking-tight font-bold mb-0 text-light" style="letter-spacing: -0.5px;">{{ $file->name }}</text-4xl font-extrabold tracking-tight lg:text-5xl>
+ <h2 :text-5xl class="text-2xl font-semibold tracking-tight font-bold mb-0 text-foreground" style="letter-spacing: -0.5px;">{{ $file->name }}</h2>
  </div>
- <p class="mb-0 text-sm text-secondary">
+ <p class="mb-0 text-sm text-muted-foreground">
  Uploaded by <strong>{{ $file->uploadedBy->name }}</strong> on {{ $file->created_at->format('M j, Y \a\t g:i A') }} ({{ $file->size ? round($file->size / 1024, 1) . ' KB' : 'Unknown size' }})
  </p>
  </div>
@@ -30,9 +30,9 @@
  <button type="button" id="prevPage" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2-sm inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2-outline-secondary rounded-2" disabled>
  <i data-lucide="chevron-left" class="w-4 h-4" style="vertical-align: -2px;"></i>
  </button>
- <div class="flex items-center gap-1 text-light text-sm font-medium">
+ <div class="flex items-center gap-1 text-foreground text-sm font-medium">
  <span>Page</span>
- <input type="number" id="pageNumberInput" value="1" min="1" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50-sm text-center bg-secondary text-light border-0 rounded-2" style="width: 55px;" />
+ <input type="number" id="pageNumberInput" value="1" min="1" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50-sm text-center bg-secondary text-foreground border-0 rounded-2" style="width: 55px;" />
  <span>of <span id="pageCountSpan">-</span></span>
  </div>
  <button type="button" id="nextPage" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2-sm inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2-outline-secondary rounded-2" disabled>
@@ -45,7 +45,7 @@
  <button type="button" id="zoomOut" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2-sm inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2-outline-secondary rounded-2" title="Zoom Out">
  <i data-lucide="zoom-out" class="w-4 h-4" style="vertical-align: -2px;"></i>
  </button>
- <span id="zoomLabel" class="text-light text-sm font-medium px-2" style="min-width: 50px; text-align: center;">100%</span>
+ <span id="zoomLabel" class="text-foreground text-sm font-medium px-2" style="min-width: 50px; text-align: center;">100%</span>
  <button type="button" id="zoomIn" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2-sm inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2-outline-secondary rounded-2" title="Zoom In">
  <i data-lucide="zoom-in" class="w-4 h-4" style="vertical-align: -2px;"></i>
  </button>
@@ -66,14 +66,14 @@
  <div class="spinner-border text-primary mb-3" role="status" style="width: 3rem; height: 3rem;">
  <span class="visually-hidden">Loading PDF...</span>
  </div>
- <p class="text-secondary text-sm mb-0">Loading document preview...</p>
+ <p class="text-muted-foreground text-sm mb-0">Loading document preview...</p>
  </div>
 
  {{-- Error Container --}}
  <div id="pdfErrorContainer" class="text-center py-5 d-none">
  <i data-lucide="alert-triangle" class="w-12 h-12 text-amber-600 dark:text-amber-400 mb-3"></i>
- <text-lg font-semibold tracking-tight class="text-light mb-2">Unable to render PDF preview</text-lg font-semibold tracking-tight>
- <p id="pdfErrorMessage" class="text-secondary text-sm mb-3">An error occurred while loading the document.</p>
+ <div class="text-foreground mb-2">Unable to render PDF preview</div>
+ <p id="pdfErrorMessage" class="text-muted-foreground text-sm mb-3">An error occurred while loading the document.</p>
  <a href="{{ route('files.download', [$assignment, $file]) }}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2-sm inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2-outline-primary rounded-2">
  Download PDF to View
  </a>

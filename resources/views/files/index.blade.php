@@ -5,21 +5,21 @@
 
 @section('content')
 <div class="flex justify-between items-center mb-4">
- <text-4xl font-extrabold tracking-tight lg:text-5xl class="text-2xl font-semibold tracking-tight font-semibold text-light">Files - {{ $assignment->name }}</text-4xl font-extrabold tracking-tight lg:text-5xl>
+ <h2 :text-5xl class="text-2xl font-semibold tracking-tight font-semibold text-foreground">Files - {{ $assignment->name }}</h2>
  <a href="{{ route('assignments.show', $assignment) }}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 rounded-2">Back</a>
 </div>
 
 <div class="rounded-xl border border-border bg-card text-card-foreground shadow border-0 shadow-sm rounded-3 mb-3">
  <div class="p-6">
- <form method="POST" action="{{ route('files.upload', $assignment) }}" enctype="multipart/form-data" class="row g-2 items-end">
+ <form method="POST" action="{{ route('files.upload', $assignment) }}" enctype="multipart/form-data" class="grid grid-cols-1 md:grid-cols-12 gap-2 items-end">
  @csrf
- <div class="col-12 col-md-5">
- <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-light">Select File</label>
+ <div class="md:col-span-5">
+ <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-foreground">Select File</label>
  <input type="file" name="file" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 rounded-2 @error('file') is-invalid @enderror" required>
  @error('file')<div class="invalid-feedback">{{ $message }}</div>@enderror
  </div>
- <div class="col-12 col-md-4">
- <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-light">Folder</label>
+ <div class="md:col-span-4">
+ <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-foreground">Folder</label>
  <select name="folder_id" class="flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 rounded-2">
  <option value="">No Folder</option>
  @foreach($folders as $folder)
@@ -27,7 +27,7 @@
  @endforeach
  </select>
  </div>
- <div class="col-12 col-md-3">
+ <div class="md:col-span-3">
  <button type="submit" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2 rounded-2 w-full">Upload</button>
  </div>
  </form>
@@ -36,7 +36,7 @@
 
 <div class="rounded-xl border border-border bg-card text-card-foreground shadow border-0 shadow-sm rounded-3">
  <div class="w-full overflow-auto">
- <w-full caption-bottom text-sm class="w-full caption-bottom text-sm w-full caption-bottom text-sm-hover mb-0 align-middle">
+ <table class="w-full caption-bottom text-sm w-full caption-bottom text-sm-hover mb-0 align-middle">
  <thead class="bg-light">
  <tr>
  <th class="ps-4">File Name</th>
@@ -70,11 +70,11 @@
  </tr>
  @empty
  <tr>
- <td colspan="6" class="text-center py-4 text-secondary">No files uploaded.</td>
+ <td colspan="6" class="text-center py-4 text-muted-foreground">No files uploaded.</td>
  </tr>
  @endforelse
  </tbody>
- </w-full caption-bottom text-sm>
+ </table>
  </div>
 </div>
 
@@ -82,7 +82,7 @@
  <div class="modal-dialog">
  <div class="modal-content border-0 rounded-3">
  <div class="modal-header border-secondary">
- <text-lg font-semibold tracking-tight class="modal-title text-light">Rename File</text-lg font-semibold tracking-tight>
+ <div class="modal-title text-foreground">Rename File</div>
  <button type="button" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2-close" data-bs-dismiss="modal"></button>
  </div>
  <form method="POST" id="renameForm">

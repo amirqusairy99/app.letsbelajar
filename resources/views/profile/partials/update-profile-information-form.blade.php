@@ -1,8 +1,8 @@
 <section>
  <header>
- <text-3xl font-semibold tracking-tight class="text-lg font-medium text-gray-900">
+ <div class="text-lg font-medium text-gray-900">
  {{ __('Profile Information') }}
- </text-3xl font-semibold tracking-tight>
+ </div>
 
  <p class="mt-1 text-sm text-gray-600">
  {{ __("Update your account's profile information and email address.") }}

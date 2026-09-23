@@ -5,7 +5,7 @@
 
 @section('content')
 <div class="flex justify-between items-center mb-4">
- <text-4xl font-extrabold tracking-tight lg:text-5xl class="text-2xl font-semibold tracking-tight font-semibold text-light">Notifications</text-4xl font-extrabold tracking-tight lg:text-5xl>
+ <h2 :text-5xl class="text-2xl font-semibold tracking-tight font-semibold text-foreground">Notifications</h2>
  <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2-outline-primary rounded-2" id="markAllRead">Mark all as read</button>
 </div>
 
@@ -15,14 +15,14 @@
  <a href="#" class="relative flex w-full items-center justify-between border-b border-border py-3 px-4 last:border-0 hover:bg-muted/50 transition-colors relative flex w-full items-center justify-between border-b border-border py-3 px-4 last:border-0 hover:bg-muted/50 transition-colors-action notification-item {{ is_null($notification->read_at) ? 'border-start border-4 border-primary' : '' }}" data-id="{{ $notification->id }}">
  <div class="flex justify-between items-center">
  <div>
- <p class="mb-1 text-light font-medium">{{ $notification->data['title'] ?? $notification->type }}</p>
- <text-sm class="text-secondary">{{ $notification->data['message'] ?? '' }}</text-sm>
+ <p class="mb-1 text-foreground font-medium">{{ $notification->data['title'] ?? $notification->type }}</p>
+ <div class="text-muted-foreground">{{ $notification->data['message'] ?? '' }}</div>
  </div>
- <text-sm class="text-secondary">{{ $notification->created_at->diffForHumans() }}</text-sm>
+ <div class="text-muted-foreground">{{ $notification->created_at->diffForHumans() }}</div>
  </div>
  </a>
  @empty
- <div class="relative flex w-full items-center justify-between border-b border-border py-3 px-4 last:border-0 hover:bg-muted/50 transition-colors text-center py-4 text-secondary">No notifications.</div>
+ <div class="relative flex w-full items-center justify-between border-b border-border py-3 px-4 last:border-0 hover:bg-muted/50 transition-colors text-center py-4 text-muted-foreground">No notifications.</div>
  @endforelse
  </div>
 </div>
