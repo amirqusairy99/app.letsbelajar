@@ -6,8 +6,8 @@
 @section('content')
 <div class="flex justify-between items-start mb-4">
  <div>
- <text-4xl font-extrabold tracking-tight lg:text-5xl class="text-2xl font-semibold tracking-tight font-semibold text-light">{{ $assignment->name }}</text-4xl font-extrabold tracking-tight lg:text-5xl>
- <p class="text-secondary">{{ $assignment->subject }} &middot; {{ $assignment->lecturer_name ?? 'No lecturer' }}</p>
+ <h1 class="text-2xl font-semibold tracking-tight text-foreground">{{ $assignment->name }}</h1>
+ <p class="text-muted-foreground">{{ $assignment->subject }} &middot; {{ $assignment->lecturer_name ?? 'No lecturer' }}</p>
  </div>
  <div class="flex gap-2">
  @can('archive', $assignment)
@@ -35,21 +35,21 @@
  <div class="col-12 col-lg-8">
  <div class="rounded-xl border border-border bg-card text-card-foreground shadow border-0 shadow-sm rounded-3 mb-3">
  <div class="p-6">
- <text-lg font-semibold tracking-tight class="text-base font-semibold tracking-tight font-semibold text-light mb-2">Description</text-lg font-semibold tracking-tight>
- <p class="text-secondary mb-0">{{ $assignment->description ?: 'No description provided.' }}</p>
+ <h2 class="text-base font-semibold tracking-tight text-foreground mb-2">Description</h2>
+ <p class="text-muted-foreground mb-0">{{ $assignment->description ?: 'No description provided.' }}</p>
  </div>
  </div>
 
  <div class="rounded-xl border border-border bg-card text-card-foreground shadow border-0 shadow-sm rounded-3">
  <div class="p-6">
- <text-lg font-semibold tracking-tight class="text-base font-semibold tracking-tight font-semibold text-light mb-3">Members</text-lg font-semibold tracking-tight>
+ <h2 class="text-base font-semibold tracking-tight text-foreground mb-3">Members</h2>
  @foreach($assignment->members as $member)
- <div class="flex justify-between items-center py-2 border-bottom border-secondary">
+ <div class="flex justify-between items-center py-2 border-bottom border-border">
  <div class="flex items-center gap-2">
  <span class="avatar text-white rounded-circle flex items-center justify-center" style="width:32px; height:32px; font-size:14px;">{{ substr($member->user->name, 0, 1) }}</span>
  <div>
- <p class="mb-0 text-light font-medium">{{ $member->user->name }}</p>
- <text-sm class="text-secondary">{{ $member->user->email }}</text-sm>
+ <p class="mb-0 text-foreground font-medium">{{ $member->user->name }}</p>
+ <p class="text-sm text-muted-foreground">{{ $member->user->email }}</p>
  </div>
  </div>
  <span class="badge bg-{{ $member->role === 'owner' ? 'primary' : 'secondary' }} rounded-pill">{{ ucfirst($member->role) }}</span>
@@ -83,19 +83,19 @@
  <div class="col-12 col-lg-4">
  <div class="rounded-xl border border-border bg-card text-card-foreground shadow border-0 shadow-sm rounded-3 mb-3">
  <div class="p-6">
- <text-lg font-semibold tracking-tight class="text-base font-semibold tracking-tight font-semibold text-light mb-3">Details</text-lg font-semibold tracking-tight>
- <p class="mb-2 text-secondary text-sm">Status</p>
- <p class="mb-3 text-light font-medium">{{ ucfirst($assignment->status) }}</p>
- <p class="mb-2 text-secondary text-sm">Due Date</p>
- <p class="mb-3 text-light font-medium">{{ $assignment->due_date ? \Carbon\Carbon::parse($assignment->due_date)->format('M j, Y') : 'No due date' }}</p>
- <p class="mb-2 text-secondary text-sm">Created By</p>
- <p class="mb-0 text-light font-medium">{{ $assignment->createdBy->name }}</p>
+ <h2 class="text-base font-semibold tracking-tight text-foreground mb-3">Details</h2>
+ <p class="mb-2 text-muted-foreground text-sm">Status</p>
+ <p class="mb-3 text-foreground font-medium">{{ ucfirst($assignment->status) }}</p>
+ <p class="mb-2 text-muted-foreground text-sm">Due Date</p>
+ <p class="mb-3 text-foreground font-medium">{{ $assignment->due_date ? \Carbon\Carbon::parse($assignment->due_date)->format('M j, Y') : 'No due date' }}</p>
+ <p class="mb-2 text-muted-foreground text-sm">Created By</p>
+ <p class="mb-0 text-foreground font-medium">{{ $assignment->createdBy->name }}</p>
  </div>
  </div>
 
  <div class="rounded-xl border border-border bg-card text-card-foreground shadow border-0 shadow-sm rounded-3">
  <div class="p-6">
- <text-lg font-semibold tracking-tight class="text-base font-semibold tracking-tight font-semibold text-light mb-3">Quick Actions</text-lg font-semibold tracking-tight>
+ <h2 class="text-base font-semibold tracking-tight text-foreground mb-3">Quick Actions</h2>
  <div class="d-grid gap-2">
  <a href="{{ route('files.index', $assignment) }}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 rounded-2 text-left">
  <i data-lucide="folder" class="w-4 h-4 me-2"></i> Files
