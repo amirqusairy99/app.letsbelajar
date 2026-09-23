@@ -14,7 +14,7 @@
     </div>
 </div>
 
-<div class="rounded-xl border border-border bg-card shadow-sm max-w-3xl overflow-hidden">
+<div class="rounded-xl border border-border bg-card shadow-sm max-w-5xl w-full overflow-hidden">
     <div class="p-6 md:p-8">
         <form method="POST" action="{{ route('assignments.store') }}" class="space-y-6">
             @csrf

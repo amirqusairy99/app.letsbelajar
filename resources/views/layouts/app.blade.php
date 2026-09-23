@@ -51,7 +51,7 @@
                     </div>
                 @endif
 
-                <div class="animate-in fade-in duration-300 max-w-7xl mx-auto">
+                <div class="animate-in fade-in duration-300 w-full">
                     @yield('content')
                 </div>
             </main>
