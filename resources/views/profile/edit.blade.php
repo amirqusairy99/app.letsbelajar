@@ -107,7 +107,7 @@
     </div>
 
     {{-- Delete Account --}}
-    <div class="rounded-xl border border-destructive/20 bg-destructive/5 shadow-sm overflow-hidden md:col-span-2 max-w-2xl" x-data="{ confirmDelete: {{ $errors->userDeletion->isNotEmpty() ? 'true' : 'false' }} }">
+    <div class="rounded-xl border border-destructive/50 bg-card shadow-sm overflow-hidden md:col-span-2 max-w-2xl" x-data="{ confirmDelete: {{ $errors->userDeletion->isNotEmpty() ? 'true' : 'false' }} }">
         <div class="p-6">
             <h2 class="text-lg font-semibold text-destructive flex items-center mb-1">
                 <i data-lucide="trash-2" class="w-5 h-5 mr-2"></i>
