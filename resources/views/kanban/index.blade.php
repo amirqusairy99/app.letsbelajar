@@ -15,7 +15,7 @@
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
- @foreach(['todo' => ['To Do', 'circle-dashed', 'var(--js-text-muted-foreground)'], 'doing' => ['In Progress', 'loader', 'var(--js-accent-hover)'], 'completed' => ['Completed', 'check-circle-2', 'var(--js-success)']] as $status => [$label, $icon, $color])
+ @foreach(['todo' => ['To Do', 'circle-dashed', 'var(--js-text-muted-foreground)'], 'doing' => ['In Progress', 'loader', 'var(--js-accent-hover)'], 'completed' => ['Completed', 'check-circle', 'var(--js-success)']] as $status => [$label, $icon, $color])
  @php($columnTasks = $tasks->where('status', $status))
  <div class="md:col-span-4">
  <div class="rounded-xl border border-border bg-card text-card-foreground shadow border-0 shadow-sm flex flex-col kanban-card-wrapper">
@@ -28,7 +28,7 @@
  <span class="badge bg-secondary rounded-pill">{{ $columnTasks->count() }}</span>
  </div>
  </div>
- <div class="kanban-column" data-status="{{ $status }}">
+ <div class="kanban-column flex-1 min-h-[200px] p-3" data-status="{{ $status }}">
  @forelse($columnTasks as $task)
  <div class="kanban-card rounded-xl border border-border bg-card text-card-foreground shadow mb-2 p-3" draggable="true" data-task-id="{{ $task->id }}">
  <div class="py-2 px-1">

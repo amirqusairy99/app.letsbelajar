@@ -16,60 +16,60 @@
 
 {{-- Overall Stats Banner --}}
 <div class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-4">
- <div class="col-6 col-md-3">
+ <div class="md:col-span-3">
  <div class="rounded-xl border border-border bg-card text-card-foreground shadow h-full position-relative overflow-hidden" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(99, 102, 241, 0.03) 100%); border-color: rgba(99, 102, 241, 0.25) !important;">
  <div class="p-6 flex items-center gap-6">
- <div class="stat-icon bg-primary text-white shadow-sm" style="">
- <i data-lucide="check-square" class="w-5 h-5"></i>
+ <div class="stat-icon bg-primary text-white shadow-sm rounded-full p-3 flex items-center justify-center">
+ <i data-lucide="check-circle" class="w-5 h-5"></i>
  </div>
  <div>
- <span class="text-muted-foreground text-sm d-block" style="font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">Completion Rate</span>
+ <span class="text-muted-foreground text-sm block" style="font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">Completion Rate</span>
  <span class="text-xl font-semibold tracking-tight mb-0 font-bold text-foreground">
  {{ $totalTasks > 0 ? round(($completedTasks / $totalTasks) * 100) : 0 }}%
  </span>
- <div class="text-muted-foreground d-block mt-1" style="font-size: 0.7rem;">{{ $completedTasks }}/{{ $totalTasks }} Tasks Done</div>
+ <div class="text-muted-foreground block mt-1" style="font-size: 0.7rem;">{{ $completedTasks }}/{{ $totalTasks }} Tasks Done</div>
  </div>
  </div>
  </div>
  </div>
- <div class="col-6 col-md-3">
+ <div class="md:col-span-3">
  <div class="rounded-xl border border-border bg-card text-card-foreground shadow h-full position-relative overflow-hidden" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.03) 100%); border-color: rgba(16, 185, 129, 0.25) !important;">
  <div class="p-6 flex items-center gap-6">
- <div class="stat-icon bg-success text-white shadow-sm" style="">
- <i data-lucide="files" class="w-5 h-5"></i>
+ <div class="stat-icon bg-success text-white shadow-sm rounded-full p-3 flex items-center justify-center">
+ <i data-lucide="file-text" class="w-5 h-5"></i>
  </div>
  <div>
- <span class="text-muted-foreground text-sm d-block" style="font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">Total Files</span>
+ <span class="text-muted-foreground text-sm block" style="font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">Total Files</span>
  <span class="text-xl font-semibold tracking-tight mb-0 font-bold text-foreground">{{ $totalFiles }}</span>
- <div class="text-muted-foreground d-block mt-1" style="font-size: 0.7rem;">Uploaded documents</div>
+ <div class="text-muted-foreground block mt-1" style="font-size: 0.7rem;">Uploaded documents</div>
  </div>
  </div>
  </div>
  </div>
- <div class="col-6 col-md-3">
+ <div class="md:col-span-3">
  <div class="rounded-xl border border-border bg-card text-card-foreground shadow h-full position-relative overflow-hidden" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.03) 100%); border-color: rgba(245, 158, 11, 0.25) !important;">
  <div class="p-6 flex items-center gap-6">
- <div class="stat-icon bg-warning text-white shadow-sm" style="">
+ <div class="stat-icon bg-warning text-white shadow-sm rounded-full p-3 flex items-center justify-center">
  <i data-lucide="activity" class="w-5 h-5"></i>
  </div>
  <div>
- <span class="text-muted-foreground text-sm d-block" style="font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">Total Logs</span>
+ <span class="text-muted-foreground text-sm block" style="font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">Total Logs</span>
  <span class="text-xl font-semibold tracking-tight mb-0 font-bold text-foreground">{{ $totalActivities }}</span>
- <div class="text-muted-foreground d-block mt-1" style="font-size: 0.7rem;">Recorded actions</div>
+ <div class="text-muted-foreground block mt-1" style="font-size: 0.7rem;">Recorded actions</div>
  </div>
  </div>
  </div>
  </div>
- <div class="col-6 col-md-3">
+ <div class="md:col-span-3">
  <div class="rounded-xl border border-border bg-card text-card-foreground shadow h-full position-relative overflow-hidden" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.03) 100%); border-color: rgba(59, 130, 246, 0.25) !important;">
  <div class="p-6 flex items-center gap-6">
- <div class="stat-icon bg-info text-white shadow-sm" style="">
+ <div class="stat-icon bg-info text-white shadow-sm rounded-full p-3 flex items-center justify-center">
  <i data-lucide="users" class="w-5 h-5"></i>
  </div>
  <div>
- <span class="text-muted-foreground text-sm d-block" style="font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">Total Members</span>
+ <span class="text-muted-foreground text-sm block" style="font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">Total Members</span>
  <span class="text-xl font-semibold tracking-tight mb-0 font-bold text-foreground">{{ count($memberStats) }}</span>
- <div class="text-muted-foreground d-block mt-1" style="font-size: 0.7rem;">Collaborating students</div>
+ <div class="text-muted-foreground block mt-1" style="font-size: 0.7rem;">Collaborating students</div>
  </div>
  </div>
  </div>
