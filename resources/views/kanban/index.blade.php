@@ -14,18 +14,19 @@
  </a>
 </div>
 
-<div class="flex overflow-x-auto gap-6 pb-4 items-start min-h-[calc(100vh-200px)]">
+<div class="w-full overflow-x-auto pb-4">
+ <div class="grid grid-cols-3 gap-6 min-w-[768px]">
  @foreach(['todo' => ['To Do', 'circle-dashed', 'var(--js-text-muted-foreground)'], 'doing' => ['In Progress', 'loader', 'var(--js-accent-hover)'], 'completed' => ['Completed', 'check-circle', 'var(--js-success)']] as $status => [$label, $icon, $color])
  @php($columnTasks = $tasks->where('status', $status))
- <div class="w-full md:w-[350px] flex-shrink-0">
- <div class="rounded-xl border border-border bg-card text-card-foreground shadow border-0 shadow-sm flex flex-col kanban-card-wrapper">
- <div class="flex flex-col space-y-1.5 p-6 border-b border-border border-0 py-3">
+ <div>
+ <div class="rounded-xl border border-white/10 bg-secondary text-foreground shadow-sm flex flex-col kanban-card-wrapper h-full min-h-[300px]">
+ <div class="flex flex-col space-y-1.5 p-6 border-b border-white/10 py-3">
  <div class="flex justify-between items-center">
  <div class="flex items-center gap-2">
  <i data-lucide="{{ $icon }}" class="w-4 h-4" style="color: {{ $color }};"></i>
  <div class="font-semibold mb-0" style=" font-size: 0.875rem;">{{ $label }}</div>
  </div>
- <span class="badge bg-secondary rounded-pill">{{ $columnTasks->count() }}</span>
+ <span class="badge bg-card border border-border rounded-pill">{{ $columnTasks->count() }}</span>
  </div>
  </div>
  <div class="kanban-column flex-1 min-h-[200px] p-3" data-status="{{ $status }}">
@@ -50,14 +51,15 @@
  </div>
  @empty
  <div class="text-center py-4">
- <i data-lucide="inbox" class="w-5 h-5 mb-1" style=""></i>
- <p class="text-sm mb-0" style="">No tasks</p>
+ <i data-lucide="inbox" class="w-5 h-5 mb-1 text-muted-foreground" style=""></i>
+ <p class="text-sm mb-0 text-muted-foreground" style="">No tasks</p>
  </div>
  @endforelse
  </div>
  </div>
  </div>
  @endforeach
+ </div>
 </div>
 
 @push('scripts')
