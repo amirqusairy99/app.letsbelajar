@@ -14,10 +14,10 @@
  </a>
 </div>
 
-<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<div class="flex overflow-x-auto gap-6 pb-4 items-start min-h-[calc(100vh-200px)]">
  @foreach(['todo' => ['To Do', 'circle-dashed', 'var(--js-text-muted-foreground)'], 'doing' => ['In Progress', 'loader', 'var(--js-accent-hover)'], 'completed' => ['Completed', 'check-circle', 'var(--js-success)']] as $status => [$label, $icon, $color])
  @php($columnTasks = $tasks->where('status', $status))
- <div class="md:col-span-4">
+ <div class="w-full md:w-[350px] flex-shrink-0">
  <div class="rounded-xl border border-border bg-card text-card-foreground shadow border-0 shadow-sm flex flex-col kanban-card-wrapper">
  <div class="flex flex-col space-y-1.5 p-6 border-b border-border border-0 py-3">
  <div class="flex justify-between items-center">
