@@ -4,67 +4,69 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+    /* Base Background - Light */
+    --background: 142 20% 98%;
+    --foreground: 240 10% 15%; /* Darker for better contrast */
     
+    /* We'll override .bg-card in components for glass, but keep these for fallbacks */
     --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --card-foreground: 240 10% 15%;
     
     --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
+    --popover-foreground: 240 10% 15%;
     
     /* Greenish Vibe - Primary */
     --primary: 142.1 76.2% 36.3%; /* #16a34a */
-    --primary-foreground: 355.7 100% 97.3%;
+    --primary-foreground: 0 0% 100%;
     
-    --secondary: 240 4.8% 95.9%;
+    --secondary: 142 10% 90%;
     --secondary-foreground: 240 5.9% 10%;
     
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
+    --muted: 142 10% 92%;
+    --muted-foreground: 240 5% 40%; /* Darkened for legibility */
     
-    --accent: 240 4.8% 95.9%;
+    --accent: 142 10% 90%;
     --accent-foreground: 240 5.9% 10%;
     
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
+    --border: 240 5.9% 85%;
+    --input: 240 5.9% 85%;
     --ring: 142.1 76.2% 36.3%;
     
-    --radius: 0.5rem;
+    --radius: 1rem; /* More rounded for modern glass feel */
   }
 
   .dark, [data-bs-theme="dark"] {
-    /* Dark Greenish Vibe */
-    --background: 20 14.3% 4.1%; /* #0c0a09 */
-    --foreground: 0 0% 95%;
+    /* Base Background - Dark Greenish Black */
+    --background: 140 10% 4%;
+    --foreground: 0 0% 98%; /* High contrast white */
     
-    --card: 24 9.8% 10%;
-    --card-foreground: 0 0% 95%;
+    --card: 140 10% 6%;
+    --card-foreground: 0 0% 98%;
     
-    --popover: 0 0% 9%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 140 10% 6%;
+    --popover-foreground: 0 0% 98%;
     
     /* Greenish Vibe - Primary */
     --primary: 142.1 70.6% 45.3%; /* #22c55e */
     --primary-foreground: 144.9 80.4% 10%;
     
-    --secondary: 240 3.7% 15.9%;
+    --secondary: 140 10% 12%;
     --secondary-foreground: 0 0% 98%;
     
-    --muted: 0 0% 15%;
-    --muted-foreground: 240 5% 64.9%;
+    --muted: 140 10% 12%;
+    --muted-foreground: 0 0% 75%; /* Brightened for legibility */
     
-    --accent: 12 6.5% 15.1%;
+    --accent: 140 10% 15%;
     --accent-foreground: 0 0% 98%;
     
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 85.5% 86.1%;
+    --destructive: 0 62.8% 40.6%;
+    --destructive-foreground: 0 0% 98%;
     
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
+    --border: 140 10% 15%;
+    --input: 140 10% 15%;
     --ring: 142.1 70.6% 45.3%;
   }
 }
@@ -73,7 +75,79 @@
   * {
     @apply border-border;
   }
+  
+  /* Create the ambient greenish glow background */
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground bg-fixed min-h-screen;
+    background-image: 
+      radial-gradient(circle at 15% 50%, rgba(22, 163, 74, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 85% 10%, rgba(34, 197, 94, 0.08) 0%, transparent 50%);
+  }
+  
+  .dark body {
+    background-color: #0b110e; /* Deep rich slate-green instead of pure black */
+    background-image: 
+      radial-gradient(circle at 15% 50%, rgba(22, 163, 74, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 85% 10%, rgba(34, 197, 94, 0.15) 0%, transparent 50%);
+  }
+}
+
+/* 
+  GLASSMORPHISM OVERRIDES 
+  Hooks into the Tailwind classes our script generated to instantly
+  convert them into beautiful glass panels without touching the HTML again!
+*/
+@layer components {
+  /* Cards */
+  .bg-card {
+    background: rgba(255, 255, 255, 0.45) !important;
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.6) !important;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07) !important;
+  }
+  
+  .dark .bg-card {
+    background: rgba(255, 255, 255, 0.04) !important; /* Lighter frosted white glass instead of black */
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1) !important; /* Slightly brighter border to define the box */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4) !important;
+  }
+
+  /* Form Inputs (Glass style) */
+  .border-input {
+    background: rgba(255, 255, 255, 0.5) !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+  }
+  .dark .border-input {
+    background: rgba(0, 0, 0, 0.2) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+  }
+
+  /* Sidebar and Navbar Glass Overrides */
+  #appSidebar, nav.sticky {
+    background: rgba(255, 255, 255, 0.4) !important;
+    backdrop-filter: blur(24px) saturate(200%);
+    -webkit-backdrop-filter: blur(24px) saturate(200%);
+    border-color: rgba(255, 255, 255, 0.5) !important;
+  }
+  
+  .dark #appSidebar, .dark nav.sticky {
+    background: rgba(255, 255, 255, 0.03) !important; /* Soft frosted glass */
+    backdrop-filter: blur(24px) saturate(200%);
+    -webkit-backdrop-filter: blur(24px) saturate(200%);
+    border-color: rgba(255, 255, 255, 0.08) !important;
+  }
+
+  /* Secondary Buttons (Glass outline) */
+  .bg-secondary {
+    background: rgba(255, 255, 255, 0.5) !important;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(8px);
+  }
+  .dark .bg-secondary {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05);
   }
 }
