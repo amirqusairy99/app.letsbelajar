@@ -14,7 +14,7 @@
     <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800&display=swap" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
+<body class="bg-[#ffffff] text-[#09090b] dark:bg-[#0c0a09] dark:text-[#f2f2f2]">
     <div class="min-vh-100 d-flex align-items-center justify-content-center p-3 guest-bg">
         <div class="w-100" style="max-width: 440px;">
             <div class="text-center mb-4">

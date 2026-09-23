@@ -29,6 +29,13 @@ class EnsureUserActive
         $user = $request->user();
 
         if ($user && $user->isDisabled() && ! $this->shouldPassThrough($request)) {
+            if ($request->is('api/*') || $request->expectsJson()) {
+                return response()->json([
+                    'message' => 'Your account has been suspended.',
+                    'error' => 'account_suspended',
+                ], 403);
+            }
+
             return redirect()->route('account.suspended');
         }
 

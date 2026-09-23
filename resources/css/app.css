@@ -62,11 +62,12 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Light-mode safety net */
+/* Light-mode safety net 
 .bg-white  { background-color: var(--js-bg-surface) !important; color: var(--js-text-primary) !important; }
 .bg-light  { background-color: var(--js-bg-elevated) !important; }
 .text-dark  { color: var(--js-text-primary) !important; }
 .text-muted { color: var(--js-text-secondary) !important; }
+*/
 
 /* ---- Page animations ---- */
 @keyframes fadeInUp {

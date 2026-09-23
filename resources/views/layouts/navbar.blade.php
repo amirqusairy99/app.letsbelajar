@@ -1,49 +1,46 @@
-<nav class="topbar navbar navbar-expand-lg border-bottom px-3 px-lg-4">
-    <div class="container-fluid">
-        <button class="btn btn-link p-0 d-lg-none" id="sidebarToggle" style="color: #94A3B8;">
-            <i data-lucide="menu" class="w-5 h-5"></i>
+<nav class="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-[#0c0a09]/80 backdrop-blur-md px-4 lg:px-8">
+    <div class="flex items-center gap-4">
+        <button class="lg:hidden text-gray-500 hover:text-[#09090b] dark:text-gray-400 dark:hover:text-[#f2f2f2]" id="sidebarToggle">
+            <i data-lucide="menu" class="h-5 w-5"></i>
         </button>
+        <h2 class="hidden lg:block text-lg font-semibold tracking-tight text-[#09090b] dark:text-[#f2f2f2]">
+            @yield('page-title', 'Dashboard')
+        </h2>
+    </div>
 
-        <div class="d-none d-lg-flex align-items-center">
-            <h6 class="mb-0 fw-semibold" style="color: #CBD5E1;">@yield('page-title', 'Dashboard')</h6>
-        </div>
+    <div class="flex items-center gap-4">
+        <a href="{{ route('notifications.index') }}" class="relative text-gray-500 hover:text-[#09090b] dark:text-gray-400 dark:hover:text-[#f2f2f2] transition-colors" title="Notifications">
+            <i data-lucide="bell" class="h-5 w-5"></i>
+            @php($unreadCount = auth()->user()->unreadNotifications->count())
+            @if($unreadCount > 0)
+                <span class="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
+                    {{ $unreadCount > 9 ? '9+' : $unreadCount }}
+                </span>
+            @endif
+        </a>
 
-        <div class="ms-auto d-flex align-items-center gap-3">
-            <a href="{{ route('notifications.index') }}" class="topbar-icon position-relative" title="Notifications">
-                <i data-lucide="bell" class="w-5 h-5"></i>
-                @php($unreadCount = auth()->user()->unreadNotifications->count())
-                @if($unreadCount > 0)
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6rem;">
-                        {{ $unreadCount > 9 ? '9+' : $unreadCount }}
-                    </span>
-                @endif
-            </a>
-
-            <div class="dropdown">
-                <button class="btn dropdown-toggle d-flex align-items-center gap-2 border-0 topbar-user" type="button" data-bs-toggle="dropdown">
-                    <span class="avatar-sm">
-                        {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
-                    </span>
-                    <span class="d-none d-md-inline">{{ auth()->user()->name }}</span>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end shadow-lg">
-                    <li>
-                        <a href="{{ route('profile.edit') }}" class="dropdown-item d-flex align-items-center gap-2 py-2">
-                            <i data-lucide="user" class="w-4 h-4" style="color: #94A3B8;"></i>
-                            Profile
-                        </a>
-                    </li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="dropdown-item d-flex align-items-center gap-2 py-2">
-                                <i data-lucide="log-out" class="w-4 h-4" style="color: #94A3B8;"></i>
-                                Log Out
-                            </button>
-                        </form>
-                    </li>
-                </ul>
+        <div class="relative" x-data="{ open: false }">
+            <button @click="open = !open" @click.away="open = false" class="flex items-center gap-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800/50 p-1 pr-2 transition-colors">
+                <span class="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary text-sm font-semibold">
+                    {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                </span>
+                <span class="hidden md:inline-block text-sm font-medium text-[#09090b] dark:text-[#f2f2f2]">
+                    {{ auth()->user()->name }}
+                </span>
+                <i data-lucide="chevron-down" class="h-4 w-4 text-gray-500"></i>
+            </button>
+            
+            <div x-show="open" style="display: none;" class="absolute right-0 mt-2 w-48 rounded-md border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#0c0a09] py-1 shadow-lg ring-1 ring-black ring-opacity-5">
+                <a href="{{ route('profile.edit') }}" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800/50 transition-colors">
+                    <i data-lucide="user" class="h-4 w-4"></i> Profile
+                </a>
+                <div class="my-1 h-px bg-gray-200 dark:bg-gray-800"></div>
+                <form method="POST" action="{{ route('logout') }}" class="m-0">
+                    @csrf
+                    <button type="submit" class="flex w-full items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800/50 transition-colors text-left">
+                        <i data-lucide="log-out" class="h-4 w-4"></i> Log Out
+                    </button>
+                </form>
             </div>
         </div>
     </div>
