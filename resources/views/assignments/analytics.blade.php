@@ -4,181 +4,174 @@
 @section('page-title', 'Member Contributions')
 
 @section('content')
-<div class="flex justify-between items-center mb-4">
- <div>
- <h2 :text-5xl class="text-2xl font-semibold tracking-tight font-bold mb-1" style=" letter-spacing: -0.5px;">Member Contributions</h2>
- <p class="mb-0 text-sm" style="">Workspace: <strong class="text-foreground">{{ $assignment->name }}</strong> &middot; {{ $assignment->subject }}</p>
- </div>
- <a href="{{ route('assignments.show', $assignment) }}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 rounded-2">
- <i data-lucide="arrow-left" class="w-4 h-4 me-1" style="vertical-align: -2px;"></i>Back to Workspace
- </a>
+<div class="flex justify-between items-center mb-6">
+    <div>
+        <h2 class="text-2xl font-semibold tracking-tight text-foreground mb-1">Member Contributions</h2>
+        <p class="text-sm text-muted-foreground">Workspace: <strong class="text-foreground font-medium">{{ $assignment->name }}</strong> &middot; {{ $assignment->subject }}</p>
+    </div>
+    <a href="{{ route('assignments.show', $assignment) }}" class="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground shadow-sm">
+        <i data-lucide="arrow-left" class="w-4 h-4 me-2"></i>Back to Workspace
+    </a>
 </div>
 
 {{-- Overall Stats Banner --}}
-<div class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-4">
- <div class="md:col-span-3">
- <div class="rounded-xl border border-border bg-card text-card-foreground shadow h-full position-relative overflow-hidden" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(99, 102, 241, 0.03) 100%); border-color: rgba(99, 102, 241, 0.25) !important;">
- <div class="p-6 flex items-center gap-6">
- <div class="stat-icon bg-primary text-white shadow-sm rounded-full p-3 flex items-center justify-center">
- <i data-lucide="check-circle" class="w-5 h-5"></i>
- </div>
- <div>
- <span class="text-muted-foreground text-sm block" style="font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">Completion Rate</span>
- <span class="text-xl font-semibold tracking-tight mb-0 font-bold text-foreground">
- {{ $totalTasks > 0 ? round(($completedTasks / $totalTasks) * 100) : 0 }}%
- </span>
- <div class="text-muted-foreground block mt-1" style="font-size: 0.7rem;">{{ $completedTasks }}/{{ $totalTasks }} Tasks Done</div>
- </div>
- </div>
- </div>
- </div>
- <div class="md:col-span-3">
- <div class="rounded-xl border border-border bg-card text-card-foreground shadow h-full position-relative overflow-hidden" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.03) 100%); border-color: rgba(16, 185, 129, 0.25) !important;">
- <div class="p-6 flex items-center gap-6">
- <div class="stat-icon bg-success text-white shadow-sm rounded-full p-3 flex items-center justify-center">
- <i data-lucide="file-text" class="w-5 h-5"></i>
- </div>
- <div>
- <span class="text-muted-foreground text-sm block" style="font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">Total Files</span>
- <span class="text-xl font-semibold tracking-tight mb-0 font-bold text-foreground">{{ $totalFiles }}</span>
- <div class="text-muted-foreground block mt-1" style="font-size: 0.7rem;">Uploaded documents</div>
- </div>
- </div>
- </div>
- </div>
- <div class="md:col-span-3">
- <div class="rounded-xl border border-border bg-card text-card-foreground shadow h-full position-relative overflow-hidden" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.03) 100%); border-color: rgba(245, 158, 11, 0.25) !important;">
- <div class="p-6 flex items-center gap-6">
- <div class="stat-icon bg-warning text-white shadow-sm rounded-full p-3 flex items-center justify-center">
- <i data-lucide="activity" class="w-5 h-5"></i>
- </div>
- <div>
- <span class="text-muted-foreground text-sm block" style="font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">Total Logs</span>
- <span class="text-xl font-semibold tracking-tight mb-0 font-bold text-foreground">{{ $totalActivities }}</span>
- <div class="text-muted-foreground block mt-1" style="font-size: 0.7rem;">Recorded actions</div>
- </div>
- </div>
- </div>
- </div>
- <div class="md:col-span-3">
- <div class="rounded-xl border border-border bg-card text-card-foreground shadow h-full position-relative overflow-hidden" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.03) 100%); border-color: rgba(59, 130, 246, 0.25) !important;">
- <div class="p-6 flex items-center gap-6">
- <div class="stat-icon bg-info text-white shadow-sm rounded-full p-3 flex items-center justify-center">
- <i data-lucide="users" class="w-5 h-5"></i>
- </div>
- <div>
- <span class="text-muted-foreground text-sm block" style="font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">Total Members</span>
- <span class="text-xl font-semibold tracking-tight mb-0 font-bold text-foreground">{{ count($memberStats) }}</span>
- <div class="text-muted-foreground block mt-1" style="font-size: 0.7rem;">Collaborating students</div>
- </div>
- </div>
- </div>
- </div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div class="rounded-xl border border-indigo-500/20 bg-indigo-500/5 text-card-foreground shadow-sm overflow-hidden">
+        <div class="p-6 flex items-center gap-4">
+            <div class="bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 rounded-full p-3 flex items-center justify-center shrink-0">
+                <i data-lucide="check-circle" class="w-6 h-6"></i>
+            </div>
+            <div>
+                <span class="text-xs font-medium text-muted-foreground uppercase tracking-wider block">Completion Rate</span>
+                <span class="text-2xl font-bold tracking-tight text-foreground block mt-1">
+                    {{ $totalTasks > 0 ? round(($completedTasks / $totalTasks) * 100) : 0 }}%
+                </span>
+                <span class="text-xs text-muted-foreground block mt-1">{{ $completedTasks }}/{{ $totalTasks }} Tasks Done</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="rounded-xl border border-emerald-500/20 bg-emerald-500/5 text-card-foreground shadow-sm overflow-hidden">
+        <div class="p-6 flex items-center gap-4">
+            <div class="bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 rounded-full p-3 flex items-center justify-center shrink-0">
+                <i data-lucide="file-text" class="w-6 h-6"></i>
+            </div>
+            <div>
+                <span class="text-xs font-medium text-muted-foreground uppercase tracking-wider block">Total Files</span>
+                <span class="text-2xl font-bold tracking-tight text-foreground block mt-1">{{ $totalFiles }}</span>
+                <span class="text-xs text-muted-foreground block mt-1">Uploaded documents</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="rounded-xl border border-amber-500/20 bg-amber-500/5 text-card-foreground shadow-sm overflow-hidden">
+        <div class="p-6 flex items-center gap-4">
+            <div class="bg-amber-500/20 text-amber-600 dark:text-amber-400 rounded-full p-3 flex items-center justify-center shrink-0">
+                <i data-lucide="activity" class="w-6 h-6"></i>
+            </div>
+            <div>
+                <span class="text-xs font-medium text-muted-foreground uppercase tracking-wider block">Total Logs</span>
+                <span class="text-2xl font-bold tracking-tight text-foreground block mt-1">{{ $totalActivities }}</span>
+                <span class="text-xs text-muted-foreground block mt-1">Recorded actions</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="rounded-xl border border-blue-500/20 bg-blue-500/5 text-card-foreground shadow-sm overflow-hidden">
+        <div class="p-6 flex items-center gap-4">
+            <div class="bg-blue-500/20 text-blue-600 dark:text-blue-400 rounded-full p-3 flex items-center justify-center shrink-0">
+                <i data-lucide="users" class="w-6 h-6"></i>
+            </div>
+            <div>
+                <span class="text-xs font-medium text-muted-foreground uppercase tracking-wider block">Total Members</span>
+                <span class="text-2xl font-bold tracking-tight text-foreground block mt-1">{{ count($memberStats) }}</span>
+                <span class="text-xs text-muted-foreground block mt-1">Collaborating students</span>
+            </div>
+        </div>
+    </div>
 </div>
 
 {{-- Member Contribution Grid --}}
-<div class="rounded-xl border border-border bg-card text-card-foreground shadow mb-4">
- <div class="flex flex-col space-y-1.5 p-6 border-b border-border py-3 flex items-center justify-between">
- <div class="text-base font-semibold tracking-tight font-semibold mb-0 text-foreground">Member Contributions</div>
- <span class="badge bg-secondary">Sorted by activity count</span>
- </div>
- <div class="p-6 p-0">
- <div class="w-full overflow-auto">
- <table class="w-full caption-bottom text-sm w-full caption-bottom text-sm-hover mb-0 align-middle">
- <thead>
- <tr>
- <th class="ps-4">Member</th>
- <th>Role</th>
- <th class="text-center">Files Uploaded</th>
- <th class="text-center">Tasks Created</th>
- <th class="text-center">Tasks Assigned (Done)</th>
- <th class="text-center">Total Activities</th>
- <th class="pe-4">Task Completion Progress</th>
- </tr>
- </thead>
- <tbody>
- @foreach($memberStats as $stat)
- <tr>
- <td class="ps-4">
- <div class="flex items-center gap-6">
- <span class="avatar text-white rounded-circle flex items-center justify-center" style="width:36px; height:36px; font-size:16px; font-weight: 600; ">
- {{ substr($stat['user']->name, 0, 1) }}
- </span>
- <div>
- <p class="mb-0 font-semibold text-foreground">{{ $stat['user']->name }}</p>
- <div class="text-muted-foreground" style="font-size: 0.75rem;">{{ $stat['user']->email }}</div>
- </div>
- </div>
- </td>
- <td>
- <span class="badge bg-{{ $stat['role'] === 'owner' ? 'primary' : 'secondary' }} rounded-pill px-2">
- {{ ucfirst($stat['role']) }}
- </span>
- </td>
- <td class="text-center font-semibold text-foreground">{{ $stat['files_uploaded'] }}</td>
- <td class="text-center font-semibold text-foreground">{{ $stat['tasks_created'] }}</td>
- <td class="text-center">
- <span class="font-semibold text-green-600 dark:text-green-400">{{ $stat['tasks_completed'] }}</span>
- <span class="text-muted-foreground">/</span>
- <span class="text-muted-foreground text-sm">{{ $stat['tasks_assigned'] }}</span>
- </td>
- <td class="text-center font-semibold text-blue-600 dark:text-blue-400">{{ $stat['activities_count'] }}</td>
- <td class="pe-4">
- @php
- $percent = $stat['tasks_assigned'] > 0 ? round(($stat['tasks_completed'] / $stat['tasks_assigned']) * 100) : 0;
- @endphp
- <div class="flex items-center gap-2" style="min-width: 140px;">
- <div class="progress flex-1 bg-dark rounded-pill" style="height: 6px; border: 1px solid rgba(255,255,255,0.05);">
- <div class="progress-bar bg-success rounded-pill" role="progressbar" style="width: {{ $percent }}%;" aria-valuenow="{{ $percent }}" aria-valuemin="0" aria-valuemax="100"></div>
- </div>
- <span class="text-sm font-semibold text-muted-foreground" style="min-width: 35px; font-size: 0.8rem;">{{ $percent }}%</span>
- </div>
- </td>
- </tr>
- @endforeach
- </tbody>
- </table>
- </div>
- </div>
+<div class="rounded-xl border border-border bg-card text-card-foreground shadow-sm mb-8 overflow-hidden">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-6 border-b border-border gap-4">
+        <div class="text-lg font-semibold tracking-tight text-foreground">Member Contributions</div>
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary text-secondary-foreground">Sorted by activity count</span>
+    </div>
+    <div class="w-full overflow-x-auto">
+        <table class="w-full text-sm text-left">
+            <thead class="text-xs text-muted-foreground uppercase bg-muted/50 border-b border-border">
+                <tr>
+                    <th class="px-6 py-4 font-medium">Member</th>
+                    <th class="px-4 py-4 font-medium">Role</th>
+                    <th class="px-4 py-4 font-medium text-center">Files Uploaded</th>
+                    <th class="px-4 py-4 font-medium text-center">Tasks Created</th>
+                    <th class="px-4 py-4 font-medium text-center">Tasks Assigned (Done)</th>
+                    <th class="px-4 py-4 font-medium text-center">Total Activities</th>
+                    <th class="px-6 py-4 font-medium">Task Completion Progress</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-border">
+                @foreach($memberStats as $stat)
+                <tr class="hover:bg-muted/50 transition-colors">
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="flex items-center gap-3">
+                            <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-primary/10 text-primary font-bold text-sm shrink-0">
+                                {{ strtoupper(substr($stat['user']->name, 0, 1)) }}
+                            </span>
+                            <div>
+                                <p class="font-medium text-foreground">{{ $stat['user']->name }}</p>
+                                <p class="text-xs text-muted-foreground mt-0.5">{{ $stat['user']->email }}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-4 py-4 whitespace-nowrap">
+                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] uppercase tracking-wide font-medium {{ $stat['role'] === 'owner' ? 'bg-primary text-primary-foreground' : 'bg-secondary text-secondary-foreground' }}">
+                            {{ $stat['role'] }}
+                        </span>
+                    </td>
+                    <td class="px-4 py-4 text-center font-medium text-foreground">{{ $stat['files_uploaded'] }}</td>
+                    <td class="px-4 py-4 text-center font-medium text-foreground">{{ $stat['tasks_created'] }}</td>
+                    <td class="px-4 py-4 text-center whitespace-nowrap">
+                        <span class="font-medium text-green-600 dark:text-green-400">{{ $stat['tasks_completed'] }}</span>
+                        <span class="text-muted-foreground mx-1">/</span>
+                        <span class="text-muted-foreground">{{ $stat['tasks_assigned'] }}</span>
+                    </td>
+                    <td class="px-4 py-4 text-center font-semibold text-blue-600 dark:text-blue-400">{{ $stat['activities_count'] }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        @php
+                            $percent = $stat['tasks_assigned'] > 0 ? round(($stat['tasks_completed'] / $stat['tasks_assigned']) * 100) : 0;
+                        @endphp
+                        <div class="flex items-center gap-3 min-w-[140px] max-w-[200px]">
+                            <div class="w-full bg-secondary rounded-full h-2 overflow-hidden border border-border/50">
+                                <div class="bg-green-500 h-full rounded-full transition-all duration-500" style="width: {{ $percent }}%"></div>
+                            </div>
+                            <span class="text-xs font-medium text-muted-foreground w-9 text-right shrink-0">{{ $percent }}%</span>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 </div>
 
 {{-- Recent Action Timelines per Member --}}
 <div class="mb-4">
- <div class="text-lg font-semibold tracking-tight font-bold mb-3 text-foreground" style="letter-spacing: -0.3px;">Recent Actions by Member</div>
- <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
- @foreach($memberStats as $stat)
- <div class="md:col-span-6">
- <div class="rounded-xl border border-border bg-card text-card-foreground shadow h-full">
- <div class="flex flex-col space-y-1.5 p-6 border-b border-border py-3 flex items-center gap-2">
- <span class="avatar text-white rounded-circle flex items-center justify-center" style="width:28px; height:28px; font-size:12px; font-weight: 600; background: linear-gradient(135deg, #475569, #64748B);">
- {{ substr($stat['user']->name, 0, 1) }}
- </span>
- <div class="text-base font-semibold tracking-tight font-semibold mb-0 text-foreground">{{ $stat['user']->name }}</div>
- <span class="badge bg-secondary ms-auto">{{ $stat['activities_count'] }} actions</span>
- </div>
- <div class="p-6 py-2">
- <div class="space-y-2">
- @forelse($stat['recent_activities'] as $activity)
- <div class="flex gap-2 py-2 border-bottom last:border-0" style="border-color: var(--js-border) !important;">
- <div class="mt-1 flex-shrink-0">
- <div style="width: 6px; height: 6px; border-radius: 50%; background-color: var(--js-accent, #6366F1); margin-top: 5px;"></div>
- </div>
- <div class="flex-1">
- <p class="mb-0 text-sm text-foreground">{{ $activity->description }}</p>
- <div class="text-muted-foreground" style="font-size: 0.72rem;">{{ $activity->created_at->diffForHumans() }}</div>
- </div>
- </div>
- @empty
- <div class="text-center py-4 text-muted-foreground text-sm">
- <i data-lucide="activity-square" class="w-8 h-8 mb-2 opacity-50" style=""></i>
- <p class="mb-0 text-muted-foreground">No recent activity recorded.</p>
- </div>
- @endforelse
- </div>
- </div>
- </div>
- </div>
- @endforeach
- </div>
+    <div class="text-lg font-semibold tracking-tight text-foreground mb-4">Recent Actions by Member</div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        @foreach($memberStats as $stat)
+        <div class="rounded-xl border border-border bg-card text-card-foreground shadow-sm flex flex-col overflow-hidden max-h-[400px]">
+            <div class="flex items-center gap-3 p-4 border-b border-border bg-muted/20">
+                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary font-bold text-xs shrink-0">
+                    {{ strtoupper(substr($stat['user']->name, 0, 1)) }}
+                </span>
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-foreground truncate">{{ $stat['user']->name }}</p>
+                </div>
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-secondary text-secondary-foreground shrink-0 border border-border">
+                    {{ $stat['activities_count'] }} actions
+                </span>
+            </div>
+            <div class="p-5 flex-1 overflow-y-auto">
+                <div class="space-y-5 relative before:absolute before:inset-0 before:ml-1.5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-border before:to-transparent">
+                    @forelse($stat['recent_activities'] as $activity)
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                        <div class="flex items-center justify-center w-3 h-3 rounded-full border border-card bg-primary shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-sm relative z-10 mx-auto"></div>
+                        <div class="w-[calc(100%-2rem)] md:w-[calc(50%-1.5rem)] ml-3 md:ml-0 p-3 rounded-lg border border-border bg-background shadow-sm">
+                            <p class="text-xs text-foreground leading-snug">{{ $activity->description }}</p>
+                            <p class="text-[10px] text-muted-foreground mt-1">{{ $activity->created_at->diffForHumans() }}</p>
+                        </div>
+                    </div>
+                    @empty
+                    <div class="text-center py-6 relative z-10 bg-card rounded-lg border border-dashed border-border">
+                        <i data-lucide="activity" class="w-8 h-8 mx-auto text-muted-foreground/30 mb-2"></i>
+                        <p class="text-xs text-muted-foreground">No recent activity.</p>
+                    </div>
+                    @endforelse
+                </div>
+            </div>
+        </div>
+        @endforeach
+    </div>
 </div>
 @endsection
