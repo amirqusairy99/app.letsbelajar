@@ -20,9 +20,9 @@
                 <label for="password" class="text-sm font-semibold text-foreground">Password</label>
                 <div class="relative">
                     <input type="password" id="password" name="password" 
-                           class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary {{ $errors->has('password') ? 'border-destructive ring-destructive' : '' }}" 
+                           class="flex h-10 w-full rounded-md border border-input bg-background pl-3 pr-14 py-2 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary {{ $errors->has('password') ? 'border-destructive ring-destructive' : '' }}" 
                            placeholder="••••••••" required>
-                    <button type="button" class="absolute inset-y-0 right-0 flex items-center pr-3 text-muted-foreground hover:text-foreground transition-colors toggle-password" data-target="password" tabindex="-1">
+                    <button type="button" class="absolute inset-y-0 right-3 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors toggle-password" data-target="password" tabindex="-1">
                         <span class="text-xs font-medium toggle-password-icon">Show</span>
                     </button>
                 </div>
