@@ -1,15 +1,15 @@
 <x-guest-layout>
-    <div class="p-6 md:p-8">
+    <div class="p-8 sm:p-10">
         <h2 class="text-2xl font-bold tracking-tight text-foreground mb-1">Welcome back</h2>
-        <p class="mb-8 text-sm text-muted-foreground">Sign in to your LetsBelajar account</p>
+        <p class="mb-10 text-sm text-muted-foreground">Sign in to your LetsBelajar account</p>
 
-        <form method="POST" action="{{ route('login') }}" class="space-y-5">
+        <form method="POST" action="{{ route('login') }}" class="space-y-6">
             @csrf
             
             <div class="space-y-2">
                 <label for="email" class="text-sm font-semibold text-foreground">Email</label>
                 <input type="email" id="email" name="email" value="{{ old('email') }}" 
-                       class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary {{ $errors->has('email') ? 'border-destructive ring-destructive' : '' }}" 
+                       class="flex h-12 w-full rounded-md border border-input bg-background px-4 py-2 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary {{ $errors->has('email') ? 'border-destructive ring-destructive' : '' }}" 
                        placeholder="you@example.com" required autofocus>
                 @error('email')
                     <p class="text-sm text-destructive font-medium mt-1">{{ $message }}</p>
@@ -20,9 +20,9 @@
                 <label for="password" class="text-sm font-semibold text-foreground">Password</label>
                 <div class="relative">
                     <input type="password" id="password" name="password" 
-                           class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary {{ $errors->has('password') ? 'border-destructive ring-destructive' : '' }}" 
+                           class="flex h-12 w-full rounded-md border border-input bg-background px-4 py-2 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary {{ $errors->has('password') ? 'border-destructive ring-destructive' : '' }}" 
                            placeholder="••••••••" required>
-                    <button type="button" class="absolute inset-y-0 right-0 flex items-center pr-3 text-muted-foreground hover:text-foreground transition-colors toggle-password" data-target="password" tabindex="-1">
+                    <button type="button" class="absolute inset-y-0 right-0 flex items-center pr-4 text-muted-foreground hover:text-foreground transition-colors toggle-password" data-target="password" tabindex="-1">
                         <span class="text-xs font-medium toggle-password-icon">Show</span>
                     </button>
                 </div>
@@ -41,7 +41,7 @@
                 @endif
             </div>
 
-            <button type="submit" class="inline-flex h-10 w-full items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 mt-4">
+            <button type="submit" class="inline-flex h-12 w-full items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 mt-6">
                 Sign in
             </button>
         </form>
@@ -51,12 +51,12 @@
                 <span class="w-full border-t border-border"></span>
             </div>
             <div class="relative flex justify-center text-xs uppercase">
-                <span class="bg-card px-2 text-muted-foreground font-semibold">Or continue with</span>
+                <span class="bg-card px-3 text-muted-foreground font-semibold">Or continue with</span>
             </div>
         </div>
 
-        <button type="button" id="google-signin" class="inline-flex h-10 w-full items-center justify-center gap-2 rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground">
-            <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
+        <button type="button" id="google-signin" class="inline-flex h-12 w-full items-center justify-center gap-2 rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground">
+            <svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true">
                 <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
                 <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
                 <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
@@ -66,7 +66,7 @@
         </button>
         <div id="google-error" class="text-destructive text-sm font-medium text-center mt-3 min-h-[1.25rem]"></div>
 
-        <p class="text-center mt-6 text-sm text-muted-foreground">
+        <p class="text-center mt-8 text-sm text-muted-foreground">
             Don't have an account? <a href="{{ route('register') }}" class="font-semibold text-primary hover:underline underline-offset-4">Sign up</a>
         </p>
     </div>
