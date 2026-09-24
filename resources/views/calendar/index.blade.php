@@ -13,7 +13,7 @@
         
         {{-- Legend --}}
         <div class="flex items-center gap-4 bg-card border border-border px-4 py-2 rounded-lg shadow-sm">
-            <span class="text-sm font-semibold text-muted-foreground">Legend:</span>
+
             <div class="flex items-center gap-1.5">
                 <span class="block w-2.5 h-2.5 rounded-full bg-blue-500"></span>
                 <span class="text-xs text-foreground">Assignments</span>

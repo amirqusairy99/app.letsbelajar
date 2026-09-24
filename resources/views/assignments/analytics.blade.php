@@ -153,13 +153,13 @@
                 </span>
             </div>
             <div class="p-5 flex-1 overflow-y-auto">
-                <div class="space-y-5 relative before:absolute before:inset-0 before:ml-1.5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-border before:to-transparent">
+                <div class="space-y-4 relative before:absolute before:inset-0 before:ml-1.5 before:-translate-x-px before:h-full before:w-0.5 before:bg-border">
                     @forelse($stat['recent_activities'] as $activity)
-                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                        <div class="flex items-center justify-center w-3 h-3 rounded-full border border-card bg-primary shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-sm relative z-10 mx-auto"></div>
-                        <div class="w-[calc(100%-2rem)] md:w-[calc(50%-1.5rem)] ml-3 md:ml-0 p-3 rounded-lg border border-border bg-background shadow-sm">
-                            <p class="text-xs text-foreground leading-snug">{{ $activity->description }}</p>
-                            <p class="text-[10px] text-muted-foreground mt-1">{{ $activity->created_at->diffForHumans() }}</p>
+                    <div class="relative flex items-start gap-4">
+                        <div class="mt-1.5 flex items-center justify-center w-3 h-3 rounded-full border-2 border-card bg-primary shrink-0 shadow-sm relative z-10"></div>
+                        <div class="flex-1 p-3 rounded-lg border border-border bg-background shadow-sm hover:border-primary/30 transition-colors">
+                            <p class="text-xs text-foreground leading-relaxed">{{ $activity->description }}</p>
+                            <p class="text-[10px] font-medium text-muted-foreground mt-1">{{ $activity->created_at->diffForHumans() }}</p>
                         </div>
                     </div>
                     @empty
