@@ -6,8 +6,8 @@
 @section('content')
 <div class="flex justify-between items-center mb-4">
  <div>
- <h2 class="text-2xl font-semibold tracking-tight mb-1" style=" letter-spacing: -0.5px;">Kanban Board</h2>
- <p class="mb-0 text-sm" style="">{{ $assignment->name }} — drag tasks between columns</p>
+ <h2 class="text-2xl font-semibold tracking-tight text-foreground mb-1">Kanban Board</h2>
+ <p class="text-sm text-muted-foreground">{{ $assignment->name }} — drag tasks between columns</p>
  </div>
  <a href="{{ route('assignments.show', $assignment) }}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2">
  <i data-lucide="arrow-left" class="w-4 h-4 me-1"></i> Back
@@ -24,35 +24,43 @@
  <div class="flex justify-between items-center">
  <div class="flex items-center gap-2">
  <i data-lucide="{{ $icon }}" class="w-4 h-4" style="color: {{ $color }};"></i>
- <div class="font-semibold mb-0" style=" font-size: 0.875rem;">{{ $label }}</div>
+ <div class="font-semibold text-sm">{{ $label }}</div>
  </div>
- <span class="badge bg-card border border-border rounded-pill">{{ $columnTasks->count() }}</span>
+ <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-card border border-border text-xs font-medium">{{ $columnTasks->count() }}</span>
  </div>
  </div>
  <div class="kanban-column flex-1 min-h-[200px] p-3" data-status="{{ $status }}">
  @forelse($columnTasks as $task)
- <div class="kanban-card rounded-xl border border-border bg-card text-card-foreground shadow mb-2 p-3" draggable="true" data-task-id="{{ $task->id }}">
- <div class="py-2 px-1">
- <p class="mb-1 font-medium" style=" font-size: 0.875rem;">{{ $task->title }}</p>
- <div class="flex justify-between items-center">
- <div class="flex items-center gap-1">
- <span class="avatar" style="width:20px; height:20px; font-size: 0.5rem;">{{ strtoupper(substr($task->assignedTo->name ?? 'U', 0, 1)) }}</span>
- <div style=" font-size: 0.75rem;">{{ $task->assignedTo->name ?? 'Unassigned' }}</div>
+ <div class="kanban-card rounded-xl border border-border bg-card text-card-foreground shadow mb-2 p-3 hover:border-primary/50 transition-colors cursor-grab active:cursor-grabbing" draggable="true" data-task-id="{{ $task->id }}">
+ <div class="flex flex-col h-full justify-between">
+ <div>
+ <p class="mb-2 font-medium text-sm leading-tight">{{ $task->title }}</p>
  </div>
- <span class="badge bg-{{ $task->priority === 'high' ? 'danger' : ($task->priority === 'medium' ? 'warning' : 'secondary') }}" style="font-size: 0.65rem;">{{ ucfirst($task->priority) }}</span>
+ <div class="flex flex-col gap-2 mt-1">
+ <div class="flex justify-between items-center">
+ <div class="flex items-center gap-2 overflow-hidden">
+ <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 text-primary font-bold text-xs shrink-0">
+ {{ strtoupper(substr($task->assignedTo->name ?? 'U', 0, 1)) }}
+ </span>
+ <div class="text-xs text-muted-foreground truncate">{{ $task->assignedTo->name ?? 'Unassigned' }}</div>
+ </div>
+ <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium shrink-0 {{ $task->priority === 'high' ? 'bg-destructive/10 text-destructive' : ($task->priority === 'medium' ? 'bg-amber-500/10 text-amber-500 dark:text-amber-400' : 'bg-secondary text-secondary-foreground') }}">
+ {{ ucfirst($task->priority) }}
+ </span>
  </div>
  @if($task->due_date)
- <div class="mt-1 flex items-center gap-1">
- <i data-lucide="calendar" class="w-3 h-3" style=""></i>
- <div style=" font-size: 0.7rem;">{{ \Carbon\Carbon::parse($task->due_date)->format('M j') }}</div>
+ <div class="flex items-center gap-1.5 text-xs text-muted-foreground mt-1">
+ <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+ <span>{{ \Carbon\Carbon::parse($task->due_date)->format('M j') }}</span>
  </div>
  @endif
  </div>
  </div>
+ </div>
  @empty
- <div class="text-center py-4">
- <i data-lucide="inbox" class="w-5 h-5 mb-1 text-muted-foreground" style=""></i>
- <p class="text-sm mb-0 text-muted-foreground" style="">No tasks</p>
+ <div class="text-center py-8">
+ <i data-lucide="inbox" class="w-8 h-8 mb-2 text-muted-foreground/50 mx-auto"></i>
+ <p class="text-sm text-muted-foreground">No tasks</p>
  </div>
  @endforelse
  </div>
