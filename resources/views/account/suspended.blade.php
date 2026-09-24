@@ -25,7 +25,8 @@
             <div class="flex flex-col gap-3 mb-6">
                 <a href="https://wa.me/601153791284?text={{ urlencode('Hello, I have completed the RM5.90 monthly payment for my LetsBelajar account. Please find my proof of payment attached. Thank you.') }}"
                    target="_blank" rel="noopener"
-                   class="inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-[#25D366] px-8 py-2 text-sm font-medium text-white shadow transition-colors hover:bg-[#25D366]/90">
+                   style="background-color: #25D366; color: white;"
+                   class="inline-flex h-11 w-full items-center justify-center gap-2 rounded-md px-8 py-2 text-sm font-medium shadow transition-opacity hover:opacity-90">
                     <i data-lucide="message-circle" class="w-5 h-5"></i>
                     Send proof on WhatsApp
                 </a>

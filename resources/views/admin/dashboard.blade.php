@@ -17,118 +17,121 @@
 @endphp
 
 @section('content')
-<div class="mb-4">
-    <h1 class="h3 fw-bold mb-1" style=" letter-spacing: -0.5px;">
+<div class="mb-8">
+    <h1 class="text-3xl font-bold tracking-tight mb-2">
         Platform Overview
     </h1>
-    <p class="mb-0" style="color: var(--js-text-muted);">A quick summary of activity across LetsBelajar.</p>
+    <p class="text-muted-foreground">A quick summary of activity across LetsBelajar.</p>
 </div>
 
 {{-- Stat cards --}}
-<div class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-4">
-    <div class="md:col-span-12 col-sm-6 col-lg-3">
-        <div class="card border-0 shadow-sm h-100 stat-card stat-info">
-            <div class="card-body flex items-center gap-3">
-                <div class="stat-icon icon-info">
-                    <i data-lucide="users" class="w-5 h-5"></i>
-                </div>
-                <div>
-                    <p class="mb-0 small fw-medium" style="color: var(--js-text-muted);">Total Users</p>
-                    <p class="h3 mb-0 fw-bold" style="">{{ $totalUsers }}</p>
-                    <small style="color: var(--js-text-muted);">+{{ $newUsersToday }} today / +{{ $newUsersThisWeek }} week</small>
-                </div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    {{-- Total Users --}}
+    <div class="bg-card text-card-foreground rounded-xl border shadow-sm p-6">
+        <div class="flex items-center gap-4">
+            <div class="p-3 bg-primary/10 text-primary rounded-lg">
+                <i data-lucide="users" class="w-6 h-6"></i>
+            </div>
+            <div>
+                <p class="text-sm font-medium text-muted-foreground">Total Users</p>
+                <h3 class="text-2xl font-bold">{{ $totalUsers }}</h3>
+            </div>
+        </div>
+        <div class="mt-4 text-xs text-muted-foreground">
+            <span class="text-primary font-medium">+{{ $newUsersToday }}</span> today / <span class="text-primary font-medium">+{{ $newUsersThisWeek }}</span> this week
+        </div>
+    </div>
+
+    {{-- Workspaces --}}
+    <div class="bg-card text-card-foreground rounded-xl border shadow-sm p-6 flex flex-col justify-center">
+        <div class="flex items-center gap-4">
+            <div class="p-3 bg-indigo-500/10 text-indigo-500 rounded-lg">
+                <i data-lucide="book-open" class="w-6 h-6"></i>
+            </div>
+            <div>
+                <p class="text-sm font-medium text-muted-foreground">Workspaces</p>
+                <h3 class="text-2xl font-bold">{{ $totalWorkspaces }}</h3>
             </div>
         </div>
     </div>
-    <div class="md:col-span-12 col-sm-6 col-lg-3">
-        <div class="card border-0 shadow-sm h-100 stat-card stat-accent">
-            <div class="card-body flex items-center gap-3">
-                <div class="stat-icon icon-accent">
-                    <i data-lucide="book-open" class="w-5 h-5"></i>
-                </div>
-                <div>
-                    <p class="mb-0 small fw-medium" style="color: var(--js-text-muted);">Workspaces / Classes</p>
-                    <p class="h3 mb-0 fw-bold" style="">{{ $totalWorkspaces }}</p>
-                </div>
+
+    {{-- Assignments --}}
+    <div class="bg-card text-card-foreground rounded-xl border shadow-sm p-6 flex flex-col justify-center">
+        <div class="flex items-center gap-4">
+            <div class="p-3 bg-emerald-500/10 text-emerald-500 rounded-lg">
+                <i data-lucide="clipboard-list" class="w-6 h-6"></i>
+            </div>
+            <div>
+                <p class="text-sm font-medium text-muted-foreground">Total Assignments</p>
+                <h3 class="text-2xl font-bold">{{ $totalAssignments }}</h3>
             </div>
         </div>
     </div>
-    <div class="md:col-span-12 col-sm-6 col-lg-3">
-        <div class="card border-0 shadow-sm h-100 stat-card stat-success">
-            <div class="card-body flex items-center gap-3">
-                <div class="stat-icon icon-success">
-                    <i data-lucide="clipboard-list" class="w-5 h-5"></i>
-                </div>
-                <div>
-                    <p class="mb-0 small fw-medium" style="color: var(--js-text-muted);">Total Assignments</p>
-                    <p class="h3 mb-0 fw-bold" style="">{{ $totalAssignments }}</p>
-                </div>
+
+    {{-- Active Users --}}
+    <div class="bg-card text-card-foreground rounded-xl border shadow-sm p-6 flex flex-col justify-center">
+        <div class="flex items-center gap-4">
+            <div class="p-3 bg-amber-500/10 text-amber-500 rounded-lg">
+                <i data-lucide="user-check" class="w-6 h-6"></i>
             </div>
-        </div>
-    </div>
-    <div class="md:col-span-12 col-sm-6 col-lg-3">
-        <div class="card border-0 shadow-sm h-100 stat-card stat-warning">
-            <div class="card-body flex items-center gap-3">
-                <div class="stat-icon icon-warning">
-                    <i data-lucide="user-check" class="w-5 h-5"></i>
-                </div>
-                <div>
-                    <p class="mb-0 small fw-medium" style="color: var(--js-text-muted);">Active Users Today</p>
-                    <p class="h3 mb-0 fw-bold" style="">{{ $activeUsersToday }}</p>
-                </div>
+            <div>
+                <p class="text-sm font-medium text-muted-foreground">Active Users Today</p>
+                <h3 class="text-2xl font-bold">{{ $activeUsersToday }}</h3>
             </div>
         </div>
     </div>
 </div>
 
-<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
     {{-- Storage + file uploads --}}
-    <div class="md:col-span-6 lg:col-span-4">
-        <div class="card border-0 shadow-sm h-100">
-            <div class="card-body flex items-center gap-3">
-                <div class="stat-icon icon-danger">
-                    <i data-lucide="hard-drive" class="w-5 h-5"></i>
+    <div class="lg:col-span-1 flex flex-col gap-6">
+        <div class="bg-card text-card-foreground rounded-xl border shadow-sm p-6">
+            <div class="flex items-center gap-4 mb-4">
+                <div class="p-3 bg-red-500/10 text-red-500 rounded-lg">
+                    <i data-lucide="hard-drive" class="w-6 h-6"></i>
                 </div>
                 <div>
-                    <p class="mb-0 small fw-medium" style="color: var(--js-text-muted);">Storage Used</p>
-                    <p class="h3 mb-0 fw-bold" style="">{{ $storageUsedLabel }}</p>
-                    <small style="color: var(--js-text-muted);">{{ $totalFileUploads }} total uploads</small>
+                    <p class="text-sm font-medium text-muted-foreground">Storage Used</p>
+                    <h3 class="text-2xl font-bold">{{ $storageUsedLabel }}</h3>
                 </div>
+            </div>
+            <div class="text-sm text-muted-foreground">
+                <span class="font-medium text-foreground">{{ $totalFileUploads }}</span> total files uploaded
             </div>
         </div>
     </div>
 
     {{-- Recent activity feed --}}
-    <div class="md:col-span-12 lg:col-span-8">
-        <div class="card border-0 shadow-sm h-100">
-            <div class="card-body">
-                <h5 class="h6 fw-semibold mb-3" style="">
-                    <i data-lucide="activity" class="w-4 h-4 me-2" style="color: var(--js-success); vertical-align: -2px;"></i>
+    <div class="lg:col-span-2">
+        <div class="bg-card text-card-foreground rounded-xl border shadow-sm h-full flex flex-col">
+            <div class="p-6 border-b">
+                <h3 class="font-semibold flex items-center gap-2">
+                    <i data-lucide="activity" class="w-5 h-5 text-primary"></i>
                     Recent Activity
-                </h5>
-                <div class="overflow-y-auto pe-1" style="max-height: 350px;">
-                    @forelse($recentActivity as $activity)
-                        <div class="flex gap-3 py-2 {{ !$loop->last ? 'border-bottom' : '' }}" style="border-color: var(--js-border) !important;">
-                            <div class="flex-shrink-0 mt-1">
-                                <div style="width: 6px; height: 6px; border-radius: 50%; background: var(--js-accent); margin-top: 4px;"></div>
-                            </div>
-                            <div>
-                                <p class="mb-0 small" style="">
-                                    @if($activity->user)
-                                        <span class="fw-semibold">{{ $activity->user->name }}</span>
-                                    @endif
-                                    {{ $activity->description }}
-                                </p>
-                                <small style="color: var(--js-text-muted);">{{ $activity->created_at->diffForHumans() }}</small>
-                            </div>
+                </h3>
+            </div>
+            <div class="p-0 overflow-y-auto" style="max-height: 400px;">
+                @forelse($recentActivity as $activity)
+                    <div class="flex gap-4 p-4 {{ !$loop->last ? 'border-b border-border/50' : '' }} hover:bg-muted/50 transition-colors">
+                        <div class="mt-1.5 flex-shrink-0">
+                            <div class="w-2.5 h-2.5 rounded-full bg-primary ring-4 ring-primary/20"></div>
                         </div>
-                    @empty
-                        <div class="text-center py-3">
-                            <i data-lucide="activity" class="w-5 h-5 mb-2" style="color: var(--js-text-muted);"></i>
-                            <p class="mb-0 small" style="color: var(--js-text-muted);">No activity recorded yet.</p>
+                        <div>
+                            <p class="text-sm">
+                                @if($activity->user)
+                                    <span class="font-semibold">{{ $activity->user->name }}</span>
+                                @endif
+                                <span class="text-muted-foreground">{{ $activity->description }}</span>
+                            </p>
+                            <span class="text-xs text-muted-foreground mt-1 block">{{ $activity->created_at->diffForHumans() }}</span>
                         </div>
-                    @endforelse
-                </div>
+                    </div>
+                @empty
+                    <div class="flex flex-col items-center justify-center p-8 text-center text-muted-foreground">
+                        <i data-lucide="activity" class="w-8 h-8 mb-3 opacity-20"></i>
+                        <p class="text-sm">No activity recorded yet.</p>
+                    </div>
+                @endforelse
             </div>
         </div>
     </div>
