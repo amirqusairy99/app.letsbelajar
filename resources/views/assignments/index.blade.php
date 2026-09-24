@@ -104,8 +104,9 @@
 @endif
 
 @if($archivedAssignments->count() > 0)
-<div>
-    <h2 class="text-xl font-bold tracking-tight text-foreground mb-4">Archived Assignments</h2>
+<div class="mt-8">
+    <hr class="mb-10 border-border border-dashed border-t-2">
+    <h2 class="text-xl font-bold tracking-tight text-foreground mb-6">Archived Assignments</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 opacity-75 hover:opacity-100 transition-opacity">
         @foreach($archivedAssignments as $assignment)
         <div class="group relative flex flex-col rounded-xl border border-border bg-card text-card-foreground shadow-sm transition-all hover:shadow-md hover:border-primary/50">
