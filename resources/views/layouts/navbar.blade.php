@@ -21,8 +21,8 @@
 
         <div class="relative" x-data="{ open: false }">
             <button @click="open = !open" @click.away="open = false" class="flex items-center gap-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800/50 p-1 pr-2 transition-colors">
-                <div class="h-8 w-8 overflow-hidden rounded-full border border-primary/20 bg-primary/10">
-                    <img src="{{ auth()->user()->avatar_url }}" alt="{{ auth()->user()->name }}" class="h-full w-full object-cover" />
+                <div class="h-8 w-8 shrink-0 overflow-hidden rounded-full border border-primary/20 bg-primary/10 flex items-center justify-center">
+                    <img src="{{ auth()->user()->avatar_url }}" alt="{{ auth()->user()->name }}" class="h-full w-full object-contain" />
                 </div>
                 <span class="hidden md:inline-block text-sm font-medium text-[#09090b] dark:text-[#f2f2f2]">
                     {{ auth()->user()->name }}
