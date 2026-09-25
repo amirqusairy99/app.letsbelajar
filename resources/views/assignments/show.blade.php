@@ -14,7 +14,7 @@
  @if($assignment->status !== 'archived')
  <form method="POST" action="{{ route('assignments.archive', $assignment) }}">
  @csrf
- <button type="submit" class="inline-flex h-9 items-center justify-center rounded-md border border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-500 px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-amber-500/20">Archive</button>
+ <button type="submit" class="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground">Archive</button>
  </form>
  @else
  <form method="POST" action="{{ route('assignments.unarchive', $assignment) }}">
@@ -30,10 +30,10 @@
  <form method="POST" action="{{ route('assignments.destroy', $assignment) }}" onsubmit="return confirm('Are you sure you want to delete this assignment? This action cannot be undone.');">
  @csrf
  @method('DELETE')
- <button type="submit" class="inline-flex h-9 items-center justify-center rounded-md border border-destructive bg-destructive/10 text-destructive px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-destructive/20">Delete</button>
+ <button type="submit" class="inline-flex h-9 items-center justify-center rounded-md bg-destructive text-destructive-foreground px-4 py-2 text-sm font-medium shadow transition-colors hover:bg-destructive/90">Delete</button>
  </form>
  @endcan
- <a href="{{ route('assignments.analytics', $assignment) }}" class="inline-flex h-9 items-center justify-center rounded-md border border-cyan-500/30 bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-cyan-500/20">Contributions</a>
+ <a href="{{ route('assignments.analytics', $assignment) }}" class="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground">Contributions</a>
  <a href="{{ route('tasks.index', $assignment) }}" class="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90">Tasks</a>
  </div>
 </div>

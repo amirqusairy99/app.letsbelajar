@@ -1,0 +1,1 @@
+echo \App\Models\User::where('email', 'mamirqusairy.arzri@student.gmi.edu.my')-; 
