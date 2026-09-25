@@ -17,11 +17,7 @@
     <div class="w-full max-w-md">
         <div class="text-center mb-8">
             <a href="/" class="inline-flex items-center justify-center gap-2">
-                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-lg shadow-primary/30">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"/>
-                    </svg>
-                </div>
+                <img src="{{ asset('logo.png') }}" alt="LetsBelajar Logo" class="h-12 w-auto object-contain drop-shadow-md" />
             </a>
             <h1 class="mt-6 text-2xl font-bold tracking-tight">LetsBelajar</h1>
             <p class="text-sm text-muted-foreground mt-1">Collaborative study management</p>

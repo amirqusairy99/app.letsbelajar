@@ -21,6 +21,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'name',
         'email',
+        'avatar',
         'password',
         'firebase_uid',
         'is_admin',
@@ -77,6 +78,19 @@ class User extends Authenticatable implements MustVerifyEmail
     public function readNotifications()
     {
         return $this->hasMany(Notification::class)->whereNotNull('read_at');
+    }
+    
+    /**
+     * Get the user's avatar URL.
+     */
+    public function getAvatarUrlAttribute()
+    {
+        if ($this->avatar && \Illuminate\Support\Facades\Storage::disk('public')->exists($this->avatar)) {
+            return asset('storage/' . $this->avatar);
+        }
+        
+        // Return a default fallback avatar based on their initials using UI Avatars
+        return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=FFFFFF&background=16A34A';
     }
 
     /**

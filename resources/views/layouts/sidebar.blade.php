@@ -1,11 +1,7 @@
 <aside class="w-64 flex-shrink-0 border-r border-gray-200 dark:border-gray-800 bg-white dark:bg-[#0c0a09] transition-transform duration-200 ease-in-out fixed inset-y-0 left-0 z-50 lg:static transform -translate-x-full lg:translate-x-0" id="appSidebar">
     <div class="h-full flex flex-col p-4">
         <a href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('dashboard') }}" class="flex items-center gap-3 mb-8 px-2 text-[#09090b] dark:text-[#f2f2f2]">
-            <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"/>
-                </svg>
-            </div>
+            <img src="{{ asset('logo.png') }}" alt="LetsBelajar Logo" class="h-8 w-auto object-contain" />
             <span class="font-bold text-lg tracking-tight">LetsBelajar</span>
         </a>
 
