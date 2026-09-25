@@ -24,10 +24,21 @@
                 @csrf
             </form>
 
-            <form method="post" action="{{ route('profile.update') }}" class="space-y-4">
+            <form method="post" action="{{ route('profile.update') }}" class="space-y-4" enctype="multipart/form-data">
                 @csrf
                 @method('patch')
                 
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="h-20 w-20 overflow-hidden rounded-full border-2 border-primary/30 bg-muted shrink-0">
+                        <img src="{{ auth()->user()->avatar_url }}" alt="Profile Picture" class="h-full w-full object-cover" />
+                    </div>
+                    <div class="flex-1">
+                        <label for="avatar" class="text-sm font-medium text-foreground block mb-1">Profile Picture</label>
+                        <input type="file" id="avatar" name="avatar" accept="image/*" class="block w-full text-sm text-muted-foreground file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 cursor-pointer">
+                        @error('avatar')<p class="text-sm text-destructive mt-1">{{ $message }}</p>@enderror
+                    </div>
+                </div>
+
                 <div class="space-y-1">
                     <label for="name" class="text-sm font-medium text-foreground">Name</label>
                     <input type="text" id="name" name="name" value="{{ old('name', $user->name) }}" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary focus-visible:border-primary disabled:cursor-not-allowed disabled:opacity-50" required autofocus autocomplete="name">
