@@ -29,8 +29,8 @@
                 @method('patch')
                 
                 <div class="flex items-center gap-4 mb-4">
-                    <div class="h-20 w-20 overflow-hidden rounded-full border-2 border-primary/30 bg-muted shrink-0 flex items-center justify-center">
-                        <img src="{{ auth()->user()->avatar_url }}" alt="Profile Picture" class="h-full w-full object-contain" />
+                    <div class="overflow-hidden rounded-full border-2 border-primary/30 bg-muted shrink-0 flex items-center justify-center" style="width: 80px; height: 80px; flex-shrink: 0;">
+                        <img src="{{ auth()->user()->avatar_url }}" alt="Profile Picture" class="object-contain" style="width: 100%; height: 100%;" />
                     </div>
                     <div class="flex-1">
                         <label for="avatar" class="text-sm font-medium text-foreground block mb-1">Profile Picture</label>
