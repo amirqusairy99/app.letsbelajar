@@ -31,46 +31,51 @@ class FileController extends Controller
     {
         $this->authorize('upload', $assignment);
 
-        $uploaded = $request->file('file');
-        $path = $uploaded->store("assignments/{$assignment->id}", 'public');
+        $uploadedFiles = $request->file('files');
+        $uploadedCount = 0;
 
-        $name = preg_replace('/[\/\\\\]/', '', $uploaded->getClientOriginalName());
-        $name = mb_substr($name, 0, 255);
+        foreach ($uploadedFiles as $uploaded) {
+            $path = $uploaded->store("assignments/{$assignment->id}", 'public');
 
-        $file = File::create([
-            'assignment_id' => $assignment->id,
-            'folder_id' => $request->folder_id,
-            'name' => $name,
-            'path' => $path,
-            'mime_type' => Storage::disk('public')->mimeType($path) ?: $uploaded->getClientMimeType(),
-            'size' => $uploaded->getSize(),
-            'uploaded_by' => auth()->id(),
-        ]);
+            $name = preg_replace('/[\/\\\\]/', '', $uploaded->getClientOriginalName());
+            $name = mb_substr($name, 0, 255);
 
-        Activity::create([
-            'user_id' => auth()->id(),
-            'assignment_id' => $assignment->id,
-            'action' => 'file_uploaded',
-            'description' => "File '{$file->name}' was uploaded.",
-            'subject_type' => 'file',
-            'subject_id' => $file->id,
-            'ip_address' => $request->ip(),
-            'user_agent' => $request->userAgent(),
-        ]);
-
-        $notifications->notifyAssignmentMembers(
-            $assignment,
-            'file_uploaded',
-            [
-                'title' => 'New file uploaded',
-                'message' => "{$file->name} was uploaded to {$assignment->name}.",
+            $file = File::create([
                 'assignment_id' => $assignment->id,
-                'file_id' => $file->id,
-            ],
-            auth()->user()
-        );
+                'folder_id' => $request->folder_id,
+                'name' => $name,
+                'path' => $path,
+                'mime_type' => Storage::disk('public')->mimeType($path) ?: $uploaded->getClientMimeType(),
+                'size' => $uploaded->getSize(),
+                'uploaded_by' => auth()->id(),
+            ]);
 
-        return back()->with('success', 'File uploaded successfully.');
+            Activity::create([
+                'user_id' => auth()->id(),
+                'assignment_id' => $assignment->id,
+                'action' => 'file_uploaded',
+                'description' => "File '{$file->name}' was uploaded.",
+                'subject_type' => 'file',
+                'subject_id' => $file->id,
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+            ]);
+            $notifications->notifyAssignmentMembers(
+                $assignment,
+                'file_uploaded',
+                [
+                    'title' => 'New file uploaded',
+                    'message' => "{$file->name} was uploaded to {$assignment->name}.",
+                    'assignment_id' => $assignment->id,
+                    'file_id' => $file->id,
+                ],
+                auth()->user()
+            );
+            
+            $uploadedCount++;
+        }
+
+        return back()->with('success', "{$uploadedCount} file(s) uploaded successfully.");
     }
 
     public function download(Assignment $assignment, File $file)

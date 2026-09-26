@@ -14,8 +14,8 @@ class UploadFileRequest extends FormRequest
     public function rules()
     {
         return [
-            'file' => [
-                'required',
+            'files' => ['required', 'array', 'min:1'],
+            'files.*' => [
                 'file',
                 'max:15360',
                 'mimes:' . implode(',', self::ALLOWED_EXTENSIONS),
@@ -27,9 +27,9 @@ class UploadFileRequest extends FormRequest
     public function messages()
     {
         return [
-            'file.required' => 'Please select a file to upload.',
-                'file.max' => 'File size must not exceed 15MB.',
-            'file.mimes' => 'This file type is not allowed. Allowed: ' . implode(', ', self::ALLOWED_EXTENSIONS) . '.',
+            'files.required' => 'Please select at least one file to upload.',
+            'files.*.max' => 'File size must not exceed 15MB.',
+            'files.*.mimes' => 'This file type is not allowed. Allowed: ' . implode(', ', self::ALLOWED_EXTENSIONS) . '.',
         ];
     }
 
