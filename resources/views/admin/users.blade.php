@@ -19,6 +19,7 @@
                     <th class="px-6 py-4 font-medium">Name</th>
                     <th class="px-6 py-4 font-medium">Email</th>
                     <th class="px-6 py-4 font-medium">Joined</th>
+                    <th class="px-6 py-4 font-medium">Storage Limit (MB)</th>
                     <th class="px-6 py-4 font-medium text-center">Status</th>
                     <th class="px-6 py-4 font-medium text-right">Action</th>
                 </tr>
@@ -41,6 +42,13 @@
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-muted-foreground">{{ $user->email }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-muted-foreground">{{ $user->created_at->format('M j, Y') }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <form method="POST" action="{{ route('admin.users.storage-limit', $user) }}" class="flex items-center gap-2">
+                            @csrf
+                            <input type="number" name="storage_limit" value="{{ $user->storage_limit ? floor($user->storage_limit / (1024 * 1024)) : 200 }}" class="w-20 rounded-md border border-input bg-background px-2 py-1 text-xs shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary" min="1">
+                            <button type="submit" class="inline-flex h-7 items-center justify-center rounded-md bg-primary px-2 py-1 text-xs font-medium text-primary-foreground shadow hover:bg-primary/90 transition-colors">Save</button>
+                        </form>
+                    </td>
                     <td class="px-6 py-4 whitespace-nowrap text-center">
                         @if($user->isDisabled())
                             <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-destructive/10 text-destructive">Disabled</span>
@@ -63,7 +71,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="5" class="px-6 py-12 text-center text-muted-foreground">
+                    <td colspan="6" class="px-6 py-12 text-center text-muted-foreground">
                         <i data-lucide="users" class="w-8 h-8 mx-auto mb-3 opacity-50"></i>
                         No users found.
                     </td>

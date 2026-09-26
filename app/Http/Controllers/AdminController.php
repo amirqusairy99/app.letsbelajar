@@ -74,4 +74,17 @@ class AdminController extends Controller
 
         return back()->with('success', "User {$user->name} has been {$status}.");
     }
+
+    public function updateStorageLimit(Request $request, User $user)
+    {
+        $request->validate([
+            'storage_limit' => 'required|integer|min:1',
+        ]);
+
+        $user->update([
+            'storage_limit' => $request->storage_limit * 1024 * 1024,
+        ]);
+
+        return back()->with('success', "User {$user->name}'s storage limit updated to {$request->storage_limit} MB.");
+    }
 }

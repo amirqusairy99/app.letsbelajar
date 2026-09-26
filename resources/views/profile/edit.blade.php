@@ -117,6 +117,7 @@
         </div>
     </div>
 
+    @if(!$user->isAdmin())
     {{-- Delete Account --}}
     <div class="rounded-xl border border-destructive/50 bg-card shadow-sm overflow-hidden md:col-span-2 max-w-2xl" x-data="{ confirmDelete: {{ $errors->userDeletion->isNotEmpty() ? 'true' : 'false' }} }">
         <div class="p-6">
@@ -176,5 +177,6 @@
             </div>
         </div>
     </div>
+    @endif
 </div>
 @endsection
