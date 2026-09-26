@@ -24,6 +24,28 @@ class UploadFileRequest extends FormRequest
         ];
     }
 
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            if ($this->hasFile('files')) {
+                $user = $this->user();
+                $storageLimitBytes = $user->storage_limit ?? (200 * 1024 * 1024);
+                $storageUsedBytes = (float) \App\Models\File::where('uploaded_by', $user->id)->sum('size');
+                
+                $uploadingBytes = 0;
+                foreach ($this->file('files') as $file) {
+                    if ($file && $file->isValid()) {
+                        $uploadingBytes += $file->getSize();
+                    }
+                }
+                
+                if (($storageUsedBytes + $uploadingBytes) > $storageLimitBytes) {
+                    $validator->errors()->add('files', 'This upload would exceed your ' . round($storageLimitBytes / (1024 * 1024)) . ' MB storage limit.');
+                }
+            }
+        });
+    }
+
     public function messages()
     {
         return [

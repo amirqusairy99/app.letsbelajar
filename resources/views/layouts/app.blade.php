@@ -50,6 +50,25 @@
                         </button>
                     </div>
                 @endif
+                @if($errors->any())
+                    <div class="mb-6 rounded-lg border border-red-500/50 bg-red-500/10 p-4 text-red-700 dark:text-red-400" id="flash-errors">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-start gap-2">
+                                <i data-lucide="alert-circle" class="w-4 h-4 mt-0.5"></i>
+                                <div class="text-sm font-medium">
+                                    <ul class="list-disc list-inside">
+                                        @foreach($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                            <button type="button" class="hover:opacity-70 ml-2" onclick="document.getElementById('flash-errors').remove()">
+                                <i data-lucide="x" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                @endif
 
                 <div class="animate-in fade-in duration-300 w-full">
                     @yield('content')
@@ -82,7 +101,7 @@
             }
 
             // Auto-dismiss flash alerts
-            ['flash-success', 'flash-error'].forEach(id => {
+            ['flash-success', 'flash-error', 'flash-errors'].forEach(id => {
                 const el = document.getElementById(id);
                 if (el) {
                     setTimeout(() => {
