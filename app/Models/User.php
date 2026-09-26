@@ -27,12 +27,14 @@ class User extends Authenticatable implements MustVerifyEmail
         'is_admin',
         'is_disabled',
         'disabled_at',
+        'storage_limit',
     ];
 
     protected $casts = [
         'is_admin' => 'boolean',
         'is_disabled' => 'boolean',
         'disabled_at' => 'datetime',
+        'storage_limit' => 'integer',
     ];
 
     public function isAdmin(): bool

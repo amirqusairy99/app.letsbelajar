@@ -61,6 +61,9 @@ class DashboardController extends Controller
             ->limit(10)
             ->get();
 
+        $storageUsedBytes = (float) \App\Models\File::where('uploaded_by', $user->id)->sum('size');
+        $storageLimitBytes = $user->storage_limit ?? (200 * 1024 * 1024);
+
         return view('dashboard', compact(
             'myAssignments',
             'upcomingDeadlines',
@@ -69,7 +72,9 @@ class DashboardController extends Controller
             'tasksDueTomorrow',
             'pendingTasks',
             'completedTasks',
-            'recentActivities'
+            'recentActivities',
+            'storageUsedBytes',
+            'storageLimitBytes'
         ));
     }
 }

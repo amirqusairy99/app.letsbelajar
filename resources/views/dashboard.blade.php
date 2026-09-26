@@ -135,9 +135,33 @@
         </div>
     </div>
     
-    {{-- Recent Activity (Sidebar Col) --}}
+    {{-- Recent Activity & Storage (Sidebar Col) --}}
     <div class="space-y-6">
+        {{-- Storage Usage --}}
         <div class="flex items-center justify-between">
+            <h2 class="text-xl font-bold tracking-tight text-foreground flex items-center gap-2">
+                <i data-lucide="hard-drive" class="h-5 w-5 text-primary"></i>
+                Storage Usage
+            </h2>
+        </div>
+        <div class="rounded-2xl border border-border bg-card shadow-sm p-6 mb-6">
+            @php
+                $storagePercent = $storageLimitBytes > 0 ? min(100, round(($storageUsedBytes / $storageLimitBytes) * 100)) : 0;
+                $storageColorClass = $storagePercent > 90 ? 'bg-destructive' : ($storagePercent > 75 ? 'bg-amber-500' : 'bg-primary');
+            @endphp
+            <div class="space-y-2">
+                <div class="flex justify-between text-sm mb-2">
+                    <span class="text-muted-foreground">Used</span>
+                    <span class="font-medium text-foreground">{{ number_format($storageUsedBytes / 1048576, 2) }} MB / {{ number_format($storageLimitBytes / 1048576, 2) }} MB</span>
+                </div>
+                <div class="h-3 w-full bg-muted rounded-full overflow-hidden">
+                    <div class="h-full {{ $storageColorClass }} transition-all duration-500" style="width: {{ $storagePercent }}%"></div>
+                </div>
+                <p class="text-xs text-muted-foreground text-right mt-1">{{ $storagePercent }}% used</p>
+            </div>
+        </div>
+
+        <div class="flex items-center justify-between mt-8">
             <h2 class="text-xl font-bold tracking-tight text-foreground flex items-center gap-2">
                 <i data-lucide="activity" class="h-5 w-5 text-primary"></i>
                 Recent Activity
