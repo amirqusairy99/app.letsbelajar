@@ -79,7 +79,7 @@
                     <form method="POST" action="{{ route('assignments.destroy', $assignment) }}" onsubmit="return confirm('Are you sure you want to delete this assignment?');" class="inline">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors border border-destructive/20 text-destructive hover:bg-destructive hover:text-destructive-foreground h-9 w-9">
+                        <button type="submit" class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow h-9 w-9">
                             <i data-lucide="trash-2" class="w-4 h-4"></i>
                         </button>
                     </form>
@@ -166,7 +166,7 @@
                         <form method="POST" action="{{ route('assignments.destroy', $assignment) }}" onsubmit="return confirm('Are you sure you want to delete this assignment?');" class="inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors border border-destructive/20 text-destructive hover:bg-destructive hover:text-destructive-foreground h-9 w-9">
+                            <button type="submit" class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow h-9 w-9">
                                 <i data-lucide="trash-2" class="w-4 h-4"></i>
                             </button>
                         </form>
