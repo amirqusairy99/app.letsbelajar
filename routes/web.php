@@ -55,6 +55,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/assignments/{assignment}/files/{file}/content', [FileController::class, 'content'])->name('files.content');
     Route::patch('/assignments/{assignment}/files/{file}', [FileController::class, 'update'])->name('files.update');
     Route::delete('/assignments/{assignment}/files/{file}', [FileController::class, 'destroy'])->name('files.destroy');
+    Route::post('/assignments/{assignment}/files/batch-destroy', [FileController::class, 'batchDestroy'])->name('files.batchDestroy');
     
     Route::post('/assignments/{assignment}/folders', [FileController::class, 'createFolder'])->name('folders.store');
     

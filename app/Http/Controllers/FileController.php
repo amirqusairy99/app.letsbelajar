@@ -168,6 +168,48 @@ class FileController extends Controller
         return back()->with('success', 'File deleted successfully.');
     }
 
+    public function batchDestroy(Request $request, Assignment $assignment)
+    {
+        $this->authorize('upload', $assignment); // Or some appropriate permission
+
+        $request->validate([
+            'file_ids' => ['required', 'array'],
+            'file_ids.*' => ['exists:files,id'],
+        ]);
+
+        $deletedCount = 0;
+        foreach ($request->file_ids as $fileId) {
+            $file = File::where('assignment_id', $assignment->id)->find($fileId);
+            if ($file && $request->user()->can('delete', $file)) {
+                if (Storage::disk('public')->exists($file->path)) {
+                    Storage::disk('public')->delete($file->path);
+                }
+                if (Storage::disk('local')->exists($file->path)) {
+                    Storage::disk('local')->delete($file->path);
+                }
+                
+                $fileName = $file->name;
+                $fileId = $file->id;
+                
+                $file->delete();
+
+                Activity::create([
+                    'user_id' => auth()->id(),
+                    'assignment_id' => $assignment->id,
+                    'action' => 'file_deleted',
+                    'description' => "File '{$fileName}' was deleted.",
+                    'subject_type' => 'file',
+                    'subject_id' => $fileId,
+                    'ip_address' => $request->ip(),
+                    'user_agent' => $request->userAgent(),
+                ]);
+                $deletedCount++;
+            }
+        }
+
+        return back()->with('success', "{$deletedCount} file(s) deleted successfully.");
+    }
+
     public function createFolder(Request $request, Assignment $assignment)
     {
         $this->authorize('view', $assignment);

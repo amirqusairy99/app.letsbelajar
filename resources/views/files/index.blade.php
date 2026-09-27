@@ -17,6 +17,9 @@
             </div>
         </div>
         <div class="flex items-center gap-2">
+            <button x-cloak x-show="selectedFiles.length > 0" type="submit" form="batchDeleteForm" class="inline-flex items-center justify-center rounded-md text-sm font-medium border border-destructive/20 text-destructive bg-destructive/10 shadow-sm hover:bg-destructive/20 h-9 px-4 py-2 transition-colors" onclick="return confirm('Are you sure you want to delete the selected files?');">
+                <i data-lucide="trash-2" class="w-4 h-4 mr-2"></i> Delete (<span x-text="selectedFiles.length"></span>)
+            </button>
             <button @click="folderModalOpen = true" class="inline-flex items-center justify-center rounded-md text-sm font-medium border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 transition-colors">
                 <i data-lucide="folder-plus" class="w-4 h-4 mr-2 text-blue-500"></i> New Folder
             </button>
@@ -27,11 +30,17 @@
     </div>
 
     <!-- Main Table -->
-    <div class="rounded-xl border border-border bg-card text-card-foreground shadow-sm overflow-hidden">
+    <form id="batchDeleteForm" action="{{ route('files.batchDestroy', $assignment) }}" method="POST" class="rounded-xl border border-border bg-card text-card-foreground shadow-sm overflow-hidden">
+        @csrf
         <div class="overflow-x-auto">
             <table class="w-full text-sm text-left whitespace-nowrap">
                 <thead class="text-xs text-muted-foreground uppercase bg-muted/30 border-b border-border">
                     <tr>
+                        <th class="px-6 py-4 w-10">
+                            <input type="checkbox" class="rounded border-input text-primary focus:ring-primary" 
+                                @change="selectAll($event, {{ $files->pluck('id')->toJson() }})"
+                                :checked="selectedFiles.length === {{ $files->count() }} && {{ $files->count() }} > 0">
+                        </th>
                         <th class="px-6 py-4 font-medium">File Name</th>
                         <th class="px-6 py-4 font-medium">Folder</th>
                         <th class="px-6 py-4 font-medium">Size</th>
@@ -43,6 +52,9 @@
                 <tbody class="divide-y divide-border">
                     @forelse($files as $file)
                     <tr class="hover:bg-muted/30 transition-colors group">
+                        <td class="px-6 py-4">
+                            <input type="checkbox" name="file_ids[]" value="{{ $file->id }}" class="rounded border-input text-primary focus:ring-primary" x-model="selectedFiles">
+                        </td>
                         <td class="px-6 py-4">
                             <div class="flex items-center gap-3">
                                 <div class="w-8 h-8 rounded bg-primary/10 flex items-center justify-center text-primary">
@@ -99,7 +111,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="6" class="px-6 py-12 text-center">
+                        <td colspan="7" class="px-6 py-12 text-center">
                             <div class="flex flex-col items-center justify-center space-y-3">
                                 <div class="w-12 h-12 rounded-full bg-muted flex items-center justify-center">
                                     <i data-lucide="folder-open" class="w-6 h-6 text-muted-foreground"></i>
@@ -233,6 +245,15 @@ function fileManager() {
         renameCurrentName: '',
         renameFormAction: '',
         assignmentId: {{ $assignment->id }},
+        selectedFiles: [],
+        selectAll(e, allIds) {
+            if (e.target.checked) {
+                // allIds is an array of IDs from the blade file
+                this.selectedFiles = allIds.map(String);
+            } else {
+                this.selectedFiles = [];
+            }
+        },
         openRenameModal(fileId, currentName) {
             this.renameCurrentName = currentName;
             this.renameFormAction = `/assignments/${this.assignmentId}/files/${fileId}`;
