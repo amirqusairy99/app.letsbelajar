@@ -29,9 +29,15 @@
         </div>
     </div>
 
-    <!-- Main Table -->
-    <form id="batchDeleteForm" action="{{ route('files.batchDestroy', $assignment) }}" method="POST" class="rounded-xl border border-border bg-card text-card-foreground shadow-sm overflow-hidden">
+    <form id="batchDeleteForm" action="{{ route('files.batchDestroy', $assignment) }}" method="POST" class="hidden">
         @csrf
+        <template x-for="id in selectedFiles" :key="id">
+            <input type="hidden" name="file_ids[]" :value="id">
+        </template>
+    </form>
+
+    <!-- Main Table -->
+    <div class="rounded-xl border border-border bg-card text-card-foreground shadow-sm overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-sm text-left whitespace-nowrap">
                 <thead class="text-xs text-muted-foreground uppercase bg-muted/30 border-b border-border">
