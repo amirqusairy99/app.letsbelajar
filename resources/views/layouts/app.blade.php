@@ -77,11 +77,8 @@
         </div>
     </div>
 
-    <script src="https://unpkg.com/lucide@latest"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            if (window.lucide) lucide.createIcons();
-
             // Sidebar toggle
             const sidebar = document.getElementById('appSidebar');
             const overlay = document.getElementById('sidebarOverlay');
